@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Admin',
-            'email' => 'admin@portfolio.com',
-            'password' => 'password',
+            'email' => 'daprthefox@gmail.com',
+            'password' => 'asdf1234',
         ]);
 
         $this->call([ProfileSeeder::class]);

@@ -17,8 +17,8 @@ class AdminPanelTest extends TestCase
         parent::setUp();
 
         $this->user = User::factory()->create([
-            'email' => 'admin@portfolio.com',
-            'password' => 'password',
+            'email' => 'daprthefox@gmail.com',
+            'password' => 'asdf1234',
         ]);
     }
 
@@ -31,8 +31,8 @@ class AdminPanelTest extends TestCase
     public function test_allows_admin_user_to_login(): void
     {
         $this->post('/admin/login', [
-            'email' => 'admin@portfolio.com',
-            'password' => 'password',
+            'email' => 'daprthefox@gmail.com',
+            'password' => 'asdf1234',
         ])->assertSessionHasNoErrors();
     }
 

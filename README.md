@@ -1,23 +1,46 @@
 # Portfolio — Denis Piña
 
-Personal portfolio webapp built with **Laravel 13**. CV data layer with 8 models, polymorphic image support, and full test coverage.
+Portfolio personal construido con **Laravel 13**. Incluye panel de administración Filament v5, capa de datos con 8 modelos, imágenes polimórficas y cobertura completa de tests.
 
 ## Stack
 
 - **Framework**: Laravel 13.22.0
 - **PHP**: 8.3+
-- **Database**: SQLite (dev/testing)
-- **Testing**: PHPUnit 12 (43 tests)
-- **Frontend**: Vite (ready for Tailwind/Livewire)
+- **Base de datos**: SQLite (desarrollo/testing)
+- **Testing**: PHPUnit 12 (48 tests)
+- **Admin Panel**: Filament v5 (español)
+- **Frontend**: Vite (listo para Tailwind/Livewire)
 
-## Data Model
+## Panel de Administración
+
+El panel está en `/admin` con interfaz en español.
+
+**Credenciales por defecto:**
+- **Email**: `daprthefox@gmail.com`
+- **Password**: `asdf1234`
+
+```
+php artisan migrate --seed
+```
+
+### Recursos del panel
+
+| Grupo | Recursos |
+|-------|----------|
+| Dashboard | Estadísticas del portafolio |
+| Perfil | Edición del perfil (singleton) |
+| Portafolio | Proyectos, Experiencia |
+| Habilidades | Skills, Educación, Idiomas |
+| Enlaces | Links |
+
+## Modelo de Datos
 
 ```
 Profile (singleton)
  ├── hasMany → Link          (redes sociales)
  ├── hasMany → Project       (proyectos, tech_stack JSON, is_featured)
  ├── hasMany → Experience    (experiencia laboral)
- ├── hasMany → Skill         (skills por categoría)
+ ├── hasMany → Skill         (habilidades por categoría)
  ├── hasMany → Education     (formación académica)
  ├── hasMany → Language      (idiomas)
  └── morphMany → Image       (avatar, capturas, logos, certificados)
@@ -26,35 +49,38 @@ Project  → morphMany → Image
 Education → morphMany → Image
 ```
 
-### Ordenamiento
+### Ordenamiento por defecto
 
 | Modelo | Orden |
 |--------|-------|
 | Project | `start_date` DESC |
 | Experience | `start_date` DESC |
-| Education | `sort_order` ASC (drag & drop) |
+| Education | `sort_order` ASC |
 | Link, Skill, Language, Image | `sort_order` ASC |
 
 ## Setup
 
 ```bash
 php artisan migrate --seed
-php artisan test        # 43 tests, all green
+php artisan test        # 48 tests, todos verdes
+php artisan serve       # Servidor de desarrollo en localhost:8000
 ```
 
-El seeder crea un Profile con todos los datos reales del CV (proyectos, experiencia, skills, educación, idiomas, enlaces).
+El seeder crea un Profile con todos los datos reales del CV (proyectos, experiencia, skills, educación, idiomas, enlaces) y un usuario administrador para el panel.
 
-## SDD
+## SDD (Spec-Driven Development)
 
-Este proyecto usa **Spec-Driven Development**. Los artifacts están en `openspec/`:
+Este proyecto usa SDD. Los artifacts están en `openspec/`:
 
 ```
 openspec/
-├── changes/archive/2026-07-26-cv-models/   ← CV models (archived, complete)
-│   ├── exploration.md
-│   ├── proposal.md
-│   ├── design.md
-│   └── tasks.md
+├── changes/
+│   ├── archive/2026-07-26-cv-models/      ← CV models (archivado)
+│   └── admin-panel/                        ← Admin panel (en progreso)
+│       ├── proposal.md
+│       ├── design.md
+│       ├── tasks.md
+│       └── specs/
 └── specs/
     ├── cv-data-models/
     ├── singleton-profile-enforcement/
@@ -62,8 +88,6 @@ openspec/
     └── tech-stack-json/
 ```
 
-> **Estado**: El cambio `cv-models` está archivado. 8 modelos, 43 tests, 142 aserciones — todo verde.
-
-## License
+## Licencia
 
 MIT
