@@ -1,0 +1,90 @@
+<?php
+
+namespace Tests\Unit;
+
+use App\Models\Link;
+use Tests\TestCase;
+
+class LinkTest extends TestCase
+{
+    use \Illuminate\Foundation\Testing\RefreshDatabase;
+
+    /**
+     * Test that the Link model can be created
+     */
+    public function test_link_can_be_created(): void
+    {
+        $profile = \App\Models\Profile::factory()->create();
+        $link = Link::factory()->create(['profile_id' => $profile->id]);
+
+        $this->assertModelExists($link);
+        $this->assertInstanceOf(Link::class, $link);
+        $this->assertEquals($profile->id, $link->profile_id);
+        $this->assertNotEmpty($link->label);
+    }
+
+    /**
+     * Test that Link belongs to Profile relationship
+     */
+    public function test_link_belongs_to_profile(): void
+    {
+        $profile = \App\Models\Profile::factory()->create();
+        $link = Link::factory()->create(['profile_id' => $profile->id]);
+
+        $this->assertInstanceOf(\App\Models\Profile::class, $link->profile);
+        $this->assertEquals($profile->id, $link->profile->id);
+    }
+
+    /**
+     * Test that Link has the correct fillable attributes
+     */
+    public function test_link_has_fillable_attributes(): void
+    {
+        $profile = \App\Models\Profile::factory()->create();
+        $link = Link::factory()->create(['profile_id' => $profile->id]);
+
+        $link->update([
+            'label' => 'Test Label',
+            'url' => 'https://example.com',
+            'sort_order' => 5,
+        ]);
+
+        $this->assertEquals('Test Label', $link->label);
+        $this->assertEquals('https://example.com', $link->url);
+        $this->assertEquals(5, $link->sort_order);
+    }
+
+    /**
+     * Test that Link has the correct default ordering
+     */
+    public function test_link_default_ordering(): void
+    {
+        $profile = \App\Models\Profile::factory()->create();
+
+        // Create links with different sort_order values
+        Link::factory()->create(['profile_id' => $profile->id, 'label' => 'Link A', 'sort_order' => 5]);
+        Link::factory()->create(['profile_id' => $profile->id, 'label' => 'Link B', 'sort_order' => 1]);
+        Link::factory()->create(['profile_id' => $profile->id, 'label' => 'Link C', 'sort_order' => 3]);
+
+        $links = Link::all();
+        
+        $this->assertEquals('Link B', $links[0]->label);
+        $this->assertEquals('Link C', $links[1]->label);
+        $this->assertEquals('Link A', $links[2]->label);
+    }
+
+    /**
+     * Test factory creates realistic data
+     */
+    public function test_link_factory_creates_realistic_data(): void
+    {
+        $profile = \App\Models\Profile::factory()->create();
+        $link = Link::factory()->create(['profile_id' => $profile->id]);
+
+        $this->assertNotEmpty($link->label);
+        $this->assertNotEmpty($link->url);
+        $this->assertIsString($link->label);
+        $this->assertIsString($link->url);
+        $this->assertIsInt($link->sort_order);
+    }
+}
