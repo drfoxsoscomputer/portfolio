@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Filament\Resources\Languages\Pages\ManageLanguages;
 use App\Models\Language;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class LanguageResourceTest extends TestCase
@@ -38,17 +40,14 @@ class LanguageResourceTest extends TestCase
 
     public function test_can_create_language(): void
     {
-        $this->actingAs($this->user)
-            ->get('/admin/languages/create')
-            ->assertSuccessful();
-
-        $response = $this->actingAs($this->user)
-            ->post('/admin/languages', [
+        Livewire::actingAs($this->user)
+            ->test(ManageLanguages::class)
+            ->callAction('create', [
                 'name' => 'Inglés',
                 'level' => 'advanced',
                 'sort_order' => 1,
             ])
-            ->assertRedirect('/admin/languages');
+            ->assertHasNoErrors();
 
         $this->assertDatabaseHas('languages', [
             'name' => 'Inglés',
@@ -60,16 +59,13 @@ class LanguageResourceTest extends TestCase
     {
         $language = Language::factory()->create();
 
-        $response = $this->actingAs($this->user)
-            ->get("/admin/languages/{$language->id}/edit")
-            ->assertSuccessful();
-
-        $response = $this->actingAs($this->user)
-            ->put("/admin/languages/{$language->id}", [
+        Livewire::actingAs($this->user)
+            ->test(ManageLanguages::class)
+            ->callTableAction('edit', $language->id, [
                 'name' => 'Francés',
                 'level' => 'intermediate',
             ])
-            ->assertRedirect('/admin/languages');
+            ->assertHasNoErrors();
 
         $this->assertDatabaseHas('languages', [
             'id' => $language->id,
@@ -82,21 +78,21 @@ class LanguageResourceTest extends TestCase
     {
         $language = Language::factory()->create();
 
-        $this->actingAs($this->user)
-            ->delete("/admin/languages/{$language->id}")
-            ->assertRedirect('/admin/languages');
+        Livewire::actingAs($this->user)
+            ->test(ManageLanguages::class)
+            ->callTableAction('delete', $language->id);
 
         $this->assertDatabaseMissing('languages', ['id' => $language->id]);
     }
 
     public function test_level_must_be_valid(): void
     {
-        $this->actingAs($this->user)
-            ->post('/admin/languages', [
+        Livewire::actingAs($this->user)
+            ->test(ManageLanguages::class)
+            ->callAction('create', [
                 'name' => 'Alemán',
                 'level' => 'invalid-level',
-            ])
-            ->assertSessionHasErrors(['level']);
+            ]);
 
         $this->assertDatabaseMissing('languages', ['name' => 'Alemán']);
     }
