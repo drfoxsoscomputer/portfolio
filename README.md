@@ -28,7 +28,7 @@ php artisan migrate --seed
 | Grupo | Recursos |
 |-------|----------|
 | Dashboard | Estadísticas del portafolio |
-| Perfil | Edición del perfil · Enlaces · Habilidades · Idiomas |
+| Perfil | Edición del perfil · Redes Sociales · Habilidades · Idiomas |
 
 ## Modelo de Datos
 

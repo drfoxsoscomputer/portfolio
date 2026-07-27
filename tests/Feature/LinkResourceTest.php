@@ -35,7 +35,7 @@ class LinkResourceTest extends TestCase
         $this->actingAs($this->user)
             ->get('/admin/links')
             ->assertSuccessful()
-            ->assertSee('Enlaces');
+            ->assertSee('Redes Sociales');
     }
 
     public function test_can_create_link(): void

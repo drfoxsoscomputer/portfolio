@@ -23,7 +23,7 @@ class LinkResource extends Resource
 
     protected static BackedEnum|string|null $navigationIcon = Heroicon::OutlinedLink;
 
-    protected static ?string $navigationLabel = 'Enlaces';
+    protected static ?string $navigationLabel = 'Redes Sociales';
 
     protected static UnitEnum|string|null $navigationGroup = 'Perfil';
 
