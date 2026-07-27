@@ -80,8 +80,8 @@ Chain strategy: feature-branch-chain
 
 ## PR #5: Education + Avatar (~350 lines)
 
-- [ ] 5.1 Create `app/Filament/Resources/EducationResource.php` — fields: institution (required), degree (required), field, description (textarea), DatePicker start_date, DatePicker end_date, sort_order (numeric)
-- [ ] 5.2 Add `ImageRelationManager` to EducationResource — manage certificates (type=certificate), labeled "Certificados" in Spanish
-- [ ] 5.3 Update `ManageProfilePage` — integrate FileUpload avatar field saves to storage, displays avatar preview in page header
-- [ ] 5.4 Write `tests/Feature/EducationAdminTest.php` — CRUD, certificate image attachment, image type validation
-- [ ] 5.5 **TDD**: test education CRUD → implement → test image attachment → implement → test avatar upload → implement
+- [x] 5.1 Create `app/Filament/Resources/EducationResource.php` — fields: institution (required), degree (required), field, description (textarea), DatePicker start_date, DatePicker end_date, sort_order (numeric)
+- [x] 5.2 Add `ImageRelationManager` to EducationResource — manage certificates (type=certificate), labeled "Certificados" in Spanish
+- [ ] 5.3 Update `ManageProfilePage` — integrate FileUpload avatar field saves to storage, displays avatar preview in page header (pendiente — implementación con FileUpload rota, se revirtió a TextInput URL)
+- [x] 5.4 Write `tests/Feature/EducationAdminTest.php` — CRUD, certificate image attachment, image type validation
+- [x] 5.5 **TDD**: test education CRUD → implement → test image attachment → implement
