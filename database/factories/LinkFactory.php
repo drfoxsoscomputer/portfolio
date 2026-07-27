@@ -26,7 +26,13 @@ class LinkFactory extends Factory
             'profile_id' => 1, // Will be replaced with actual profile ID
             'label' => $this->faker->text(30),
             'url' => $this->faker->url(),
-            'icon' => $this->faker->optional()->imageUrl(),
+            'icon' => fake()->randomElement([
+                'si-github',
+                'si-x',
+                'si-instagram',
+                'si-youtube',
+                'si-laravel',
+            ]),
             'sort_order' => $this->faker->numberBetween(0, 10),
         ];
     }

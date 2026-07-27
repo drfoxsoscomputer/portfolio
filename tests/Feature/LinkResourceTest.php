@@ -45,7 +45,7 @@ class LinkResourceTest extends TestCase
             ->callAction('create', [
                 'label' => 'GitHub',
                 'url' => 'https://github.com/drfoxsoscomputer',
-                'icon' => 'github',
+                'icon' => 'si-github',
                 'sort_order' => 1,
             ])
             ->assertHasNoErrors();
@@ -53,7 +53,7 @@ class LinkResourceTest extends TestCase
         $this->assertDatabaseHas('links', [
             'label' => 'GitHub',
             'url' => 'https://github.com/drfoxsoscomputer',
-            'icon' => 'github',
+            'icon' => 'si-github',
         ]);
     }
 
@@ -64,7 +64,7 @@ class LinkResourceTest extends TestCase
             ->callAction('create', [
                 'label' => 'GitHub',
                 'url' => 'not-a-url',
-                'icon' => 'github',
+                'icon' => 'si-github',
             ]);
 
         $this->assertDatabaseMissing('links', [
@@ -79,17 +79,17 @@ class LinkResourceTest extends TestCase
         Livewire::actingAs($this->user)
             ->test(ManageLinks::class)
             ->callTableAction('edit', $link->id, [
-                'label' => 'LinkedIn',
-                'url' => 'https://linkedin.com',
-                'icon' => 'linkedin',
+                'label' => 'Twitter / X',
+                'url' => 'https://x.com',
+                'icon' => 'si-x',
             ])
             ->assertHasNoErrors();
 
         $this->assertDatabaseHas('links', [
             'id' => $link->id,
-            'label' => 'LinkedIn',
-            'url' => 'https://linkedin.com',
-            'icon' => 'linkedin',
+            'label' => 'Twitter / X',
+            'url' => 'https://x.com',
+            'icon' => 'si-x',
         ]);
     }
 

@@ -9,13 +9,14 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Guava\IconPicker\Forms\Components\IconPicker;
+use Guava\IconPicker\Tables\Columns\IconColumn;
 use UnitEnum;
 
 class LinkResource extends Resource
@@ -45,17 +46,10 @@ class LinkResource extends Resource
                     ->url()
                     ->required()
                     ->maxLength(255),
-                Select::make('icon')
-                    ->label('Plataforma')
-                    ->options([
-                        'github' => 'GitHub',
-                        'linkedin' => 'LinkedIn',
-                        'twitter' => 'Twitter / X',
-                        'instagram' => 'Instagram',
-                        'youtube' => 'YouTube',
-                        'globe' => 'Web Personal',
-                        'other' => 'Otro',
-                    ])
+                IconPicker::make('icon')
+                    ->label('Icono')
+                    ->sets(['simple-icons'])
+                    ->gridSearchResults()
                     ->required(),
                 TextInput::make('sort_order')
                     ->label('Orden')
@@ -76,27 +70,8 @@ class LinkResource extends Resource
                     ->label('URL')
                     ->searchable()
                     ->limit(30),
-                TextColumn::make('icon')
-                    ->label('Plataforma')
-                    ->badge()
-                    ->icon(fn (string $state): string => match ($state) {
-                        'github' => 'heroicon-o-code-bracket',
-                        'linkedin' => 'heroicon-o-briefcase',
-                        'twitter' => 'heroicon-o-chat-bubble-left-right',
-                        'instagram' => 'heroicon-o-camera',
-                        'youtube' => 'heroicon-o-video-camera',
-                        'globe' => 'heroicon-o-globe-alt',
-                        default => 'heroicon-o-link',
-                    })
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'github' => 'GitHub',
-                        'linkedin' => 'LinkedIn',
-                        'twitter' => 'Twitter / X',
-                        'instagram' => 'Instagram',
-                        'youtube' => 'YouTube',
-                        'globe' => 'Web Personal',
-                        default => 'Otro',
-                    }),
+                IconColumn::make('icon')
+                    ->label('Plataforma'),
                 TextColumn::make('sort_order')
                     ->label('Orden')
                     ->numeric()
