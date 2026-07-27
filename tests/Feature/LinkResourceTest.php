@@ -35,7 +35,7 @@ class LinkResourceTest extends TestCase
         $this->actingAs($this->user)
             ->get('/admin/links')
             ->assertSuccessful()
-            ->assertSee('Redes Sociales');
+            ->assertSee('Enlaces de Contacto');
     }
 
     public function test_can_create_link(): void
@@ -45,6 +45,7 @@ class LinkResourceTest extends TestCase
             ->callAction('create', [
                 'label' => 'GitHub',
                 'url' => 'https://github.com/drfoxsoscomputer',
+                'icon' => 'github',
                 'sort_order' => 1,
             ])
             ->assertHasNoErrors();
@@ -52,6 +53,7 @@ class LinkResourceTest extends TestCase
         $this->assertDatabaseHas('links', [
             'label' => 'GitHub',
             'url' => 'https://github.com/drfoxsoscomputer',
+            'icon' => 'github',
         ]);
     }
 
@@ -62,6 +64,7 @@ class LinkResourceTest extends TestCase
             ->callAction('create', [
                 'label' => 'GitHub',
                 'url' => 'not-a-url',
+                'icon' => 'github',
             ]);
 
         $this->assertDatabaseMissing('links', [
@@ -78,6 +81,7 @@ class LinkResourceTest extends TestCase
             ->callTableAction('edit', $link->id, [
                 'label' => 'LinkedIn',
                 'url' => 'https://linkedin.com',
+                'icon' => 'linkedin',
             ])
             ->assertHasNoErrors();
 
@@ -85,6 +89,7 @@ class LinkResourceTest extends TestCase
             'id' => $link->id,
             'label' => 'LinkedIn',
             'url' => 'https://linkedin.com',
+            'icon' => 'linkedin',
         ]);
     }
 
