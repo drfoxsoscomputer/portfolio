@@ -2,12 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Filament\Resources\Skills\Pages\ManageSkills;
 use App\Models\Profile;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Livewire\Livewire;
 use Tests\TestCase;
 
 class SkillResourceTest extends TestCase
@@ -40,14 +38,17 @@ class SkillResourceTest extends TestCase
 
     public function test_can_create_skill(): void
     {
-        Livewire::actingAs($this->user)
-            ->test(ManageSkills::class)
-            ->callAction('create', [
+        $this->actingAs($this->user)
+            ->get('/admin/skills/create')
+            ->assertSuccessful();
+
+        $response = $this->actingAs($this->user)
+            ->post('/admin/skills', [
                 'name' => 'Laravel',
                 'category' => 'backend',
                 'sort_order' => 1,
             ])
-            ->assertHasNoErrors();
+            ->assertRedirect('/admin/skills');
 
         $this->assertDatabaseHas('skills', [
             'name' => 'Laravel',
@@ -59,13 +60,16 @@ class SkillResourceTest extends TestCase
     {
         $skill = Skill::factory()->create();
 
-        Livewire::actingAs($this->user)
-            ->test(ManageSkills::class)
-            ->callTableAction('edit', $skill->id, [
+        $response = $this->actingAs($this->user)
+            ->get("/admin/skills/{$skill->id}/edit")
+            ->assertSuccessful();
+
+        $response = $this->actingAs($this->user)
+            ->put("/admin/skills/{$skill->id}", [
                 'name' => 'React',
                 'category' => 'frontend',
             ])
-            ->assertHasNoErrors();
+            ->assertRedirect('/admin/skills');
 
         $this->assertDatabaseHas('skills', [
             'id' => $skill->id,
@@ -78,9 +82,9 @@ class SkillResourceTest extends TestCase
     {
         $skill = Skill::factory()->create();
 
-        Livewire::actingAs($this->user)
-            ->test(ManageSkills::class)
-            ->callTableAction('delete', $skill->id);
+        $this->actingAs($this->user)
+            ->delete("/admin/skills/{$skill->id}")
+            ->assertRedirect('/admin/skills');
 
         $this->assertDatabaseMissing('skills', ['id' => $skill->id]);
     }
@@ -100,12 +104,12 @@ class SkillResourceTest extends TestCase
 
     public function test_skill_category_must_be_valid(): void
     {
-        Livewire::actingAs($this->user)
-            ->test(ManageSkills::class)
-            ->callAction('create', [
+        $response = $this->actingAs($this->user)
+            ->post('/admin/skills', [
                 'name' => 'Invalid',
                 'category' => 'invalid-category',
-            ]);
+            ])
+            ->assertSessionHasErrors(['category']);
 
         $this->assertDatabaseMissing('skills', ['name' => 'Invalid']);
     }

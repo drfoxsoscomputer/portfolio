@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Profile;
 use Database\Factories\ExperienceFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -26,6 +27,15 @@ class Experience extends Model
      * Get the factory class for the model.
      */
     protected string $factory = ExperienceFactory::class;
+
+    protected static function booted(): void
+    {
+        static::creating(function (Experience $experience) {
+            if (! $experience->profile_id) {
+                $experience->profile_id = Profile::first()?->id;
+            }
+        });
+    }
 
     /**
      * Get the table associated with the model.
