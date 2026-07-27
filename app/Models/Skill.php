@@ -26,6 +26,15 @@ class Skill extends Model
      */
     protected string $factory = SkillFactory::class;
 
+    protected static function booted(): void
+    {
+        static::creating(function (Skill $skill) {
+            if (! $skill->profile_id) {
+                $skill->profile_id = Profile::first()?->id;
+            }
+        });
+    }
+
     /**
      * Get the table associated with the model.
      */

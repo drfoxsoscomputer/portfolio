@@ -26,6 +26,15 @@ class Link extends Model
      */
     protected string $factory = LinkFactory::class;
 
+    protected static function booted(): void
+    {
+        static::creating(function (Link $link) {
+            if (! $link->profile_id) {
+                $link->profile_id = Profile::first()?->id;
+            }
+        });
+    }
+
     /**
      * Get the table associated with the model.
      */

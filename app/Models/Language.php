@@ -27,6 +27,15 @@ class Language extends Model
      */
     protected string $factory = LanguageFactory::class;
 
+    protected static function booted(): void
+    {
+        static::creating(function (Language $language) {
+            if (! $language->profile_id) {
+                $language->profile_id = Profile::first()?->id;
+            }
+        });
+    }
+
     /**
      * Get the table associated with the model.
      */
