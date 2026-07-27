@@ -45,7 +45,7 @@ class LinkResourceTest extends TestCase
             ->callAction('create', [
                 'label' => 'GitHub',
                 'url' => 'https://github.com/drfoxsoscomputer',
-                'icon' => 'si-github',
+                'icon' => 'github',
                 'sort_order' => 1,
             ])
             ->assertHasNoErrors();
@@ -53,7 +53,7 @@ class LinkResourceTest extends TestCase
         $this->assertDatabaseHas('links', [
             'label' => 'GitHub',
             'url' => 'https://github.com/drfoxsoscomputer',
-            'icon' => 'si-github',
+            'icon' => 'github',
         ]);
     }
 
@@ -64,7 +64,7 @@ class LinkResourceTest extends TestCase
             ->callAction('create', [
                 'label' => 'GitHub',
                 'url' => 'not-a-url',
-                'icon' => 'si-github',
+                'icon' => 'github',
             ]);
 
         $this->assertDatabaseMissing('links', [
@@ -81,7 +81,7 @@ class LinkResourceTest extends TestCase
             ->callTableAction('edit', $link->id, [
                 'label' => 'Twitter / X',
                 'url' => 'https://x.com',
-                'icon' => 'si-x',
+                'icon' => 'x',
             ])
             ->assertHasNoErrors();
 
@@ -89,7 +89,7 @@ class LinkResourceTest extends TestCase
             'id' => $link->id,
             'label' => 'Twitter / X',
             'url' => 'https://x.com',
-            'icon' => 'si-x',
+            'icon' => 'x',
         ]);
     }
 

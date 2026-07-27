@@ -15,8 +15,6 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Guava\IconPicker\Forms\Components\IconPicker;
-use Guava\IconPicker\Tables\Columns\IconColumn;
 use UnitEnum;
 
 class LinkResource extends Resource
@@ -46,11 +44,10 @@ class LinkResource extends Resource
                     ->url()
                     ->required()
                     ->maxLength(255),
-                IconPicker::make('icon')
+                TextInput::make('icon')
                     ->label('Icono')
-                    ->sets(['simple-icons'])
-                    ->gridSearchResults()
-                    ->required(),
+                    ->helperText('Plataforma: github, linkedin, x, instagram, youtube, o el que quieras')
+                    ->maxLength(255),
                 TextInput::make('sort_order')
                     ->label('Orden')
                     ->numeric()
@@ -70,8 +67,17 @@ class LinkResource extends Resource
                     ->label('URL')
                     ->searchable()
                     ->limit(30),
-                IconColumn::make('icon')
-                    ->label('Plataforma'),
+                TextColumn::make('icon')
+                    ->label('Icono')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'github' => 'GitHub',
+                        'linkedin' => 'LinkedIn',
+                        'x' => 'X (Twitter)',
+                        'instagram' => 'Instagram',
+                        'youtube' => 'YouTube',
+                        default => $state,
+                    }),
                 TextColumn::make('sort_order')
                     ->label('Orden')
                     ->numeric()

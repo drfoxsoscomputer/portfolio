@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9544073505a9394d313e6dc8e5960054",
+    "content-hash": "8f8610c4a3a6138b6e791dd7bfd238d3",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -510,77 +510,6 @@
                 }
             ],
             "time": "2026-03-20T21:10:52+00:00"
-        },
-        {
-            "name": "codeat3/blade-simple-icons",
-            "version": "8.12.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/codeat3/blade-simple-icons.git",
-                "reference": "e05469d42bff1e57e2d77f1a9129acb8f99b3d37"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/codeat3/blade-simple-icons/zipball/e05469d42bff1e57e2d77f1a9129acb8f99b3d37",
-                "reference": "e05469d42bff1e57e2d77f1a9129acb8f99b3d37",
-                "shasum": ""
-            },
-            "require": {
-                "blade-ui-kit/blade-icons": "^1.1",
-                "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0|^13.0",
-                "php": "^7.4|^8.0"
-            },
-            "require-dev": {
-                "codeat3/blade-icon-generation-helpers": "^0.12",
-                "codeat3/phpcs-styles": "^1.0",
-                "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
-                "phpunit/phpunit": "^9.0|^10.5|^11.0|^12.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Codeat3\\BladeSimpleIcons\\BladeSimpleIconsServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Codeat3\\BladeSimpleIcons\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Swapnil Sarwe",
-                    "homepage": "https://swapnilsarwe.com"
-                },
-                {
-                    "name": "Dries Vints",
-                    "homepage": "https://driesvints.com"
-                }
-            ],
-            "description": "A package to easily make use of \"Simple Icons\" in your Laravel Blade views. ",
-            "homepage": "https://github.com/codeat3/blade-simple-icons",
-            "keywords": [
-                "blade",
-                "laravel",
-                "simpleicons"
-            ],
-            "support": {
-                "issues": "https://github.com/codeat3/blade-simple-icons/issues",
-                "source": "https://github.com/codeat3/blade-simple-icons/tree/8.12.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/swapnilsarwe",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-03-22T15:35:56+00:00"
         },
         {
             "name": "danharrin/date-format-converter",
@@ -1679,85 +1608,6 @@
                 }
             ],
             "time": "2025-12-27T19:43:20+00:00"
-        },
-        {
-            "name": "guava/filament-icon-picker",
-            "version": "4.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/GuavaCZ/filament-icon-picker.git",
-                "reference": "c1aa7bbf9f2c434a02574a9b0673b4506d0588d2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/GuavaCZ/filament-icon-picker/zipball/c1aa7bbf9f2c434a02574a9b0673b4506d0588d2",
-                "reference": "c1aa7bbf9f2c434a02574a9b0673b4506d0588d2",
-                "shasum": ""
-            },
-            "require": {
-                "blade-ui-kit/blade-icons": "^1.8",
-                "filament/filament": "^5.0",
-                "php": "^8.2",
-                "spatie/laravel-package-tools": "^1.15.0"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.0",
-                "nunomaduro/collision": "^8.0",
-                "nunomaduro/larastan": "^3.0",
-                "orchestra/testbench": "^10.0",
-                "pestphp/pest": "^3.1",
-                "pestphp/pest-plugin-arch": "^3.0",
-                "pestphp/pest-plugin-laravel": "^3.0",
-                "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan-deprecation-rules": "^2.0",
-                "phpstan/phpstan-phpunit": "2.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "IconPicker": "IconManager"
-                    },
-                    "providers": [
-                        "Guava\\IconPicker\\IconPickerServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Guava\\IconPicker\\": "src/",
-                    "Guava\\IconPicker\\Database\\Factories\\": "database/factories/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Lukas Frey",
-                    "email": "lukas.frey@guava.cz",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A filament plugin that adds an icon picker field.",
-            "homepage": "https://github.com/GuavaCZ/filament-icon-picker",
-            "keywords": [
-                "Guava",
-                "filament-icon-picker",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/guavaCZ/filament-icon-picker/issues",
-                "source": "https://github.com/guavaCZ/filament-icon-picker"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/GuavaCZ",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-01-24T10:42:07+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

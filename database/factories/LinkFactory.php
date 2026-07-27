@@ -27,11 +27,11 @@ class LinkFactory extends Factory
             'label' => $this->faker->text(30),
             'url' => $this->faker->url(),
             'icon' => fake()->randomElement([
-                'si-github',
-                'si-x',
-                'si-instagram',
-                'si-youtube',
-                'si-laravel',
+                'github',
+                'linkedin',
+                'x',
+                'instagram',
+                'youtube',
             ]),
             'sort_order' => $this->faker->numberBetween(0, 10),
         ];
