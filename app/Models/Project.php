@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * Model representing a project/work experience entry.
@@ -19,9 +21,11 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  */
 #[Fillable(['user_id', 'name', 'description', 'tech_stack', 'role', 'team_size', 'url', 'repo_url', 'start_date', 'end_date', 'is_current', 'is_featured'])]
 #[Hidden([])]
-class Project extends Model
+class Project extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
+
+    use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
     /**
      * Get the factory class for the model.
@@ -87,5 +91,10 @@ class Project extends Model
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('screenshots');
     }
 }
