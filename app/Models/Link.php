@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Model representing a link/profile association.
+ * Model representing a link/user association.
  *
  * The Link model stores hyperlinks with metadata like label, URL, and ordering
- * for the user's portfolio profile. Each link belongs to a single profile.
+ * for the user's portfolio profile. Each link belongs to a single user.
  */
-#[Fillable(['profile_id', 'label', 'url', 'icon', 'sort_order'])]
+#[Fillable(['user_id', 'label', 'url', 'icon', 'sort_order'])]
 #[Hidden([])]
 class Link extends Model
 {
@@ -25,15 +25,6 @@ class Link extends Model
      * Get the factory class for the model.
      */
     protected string $factory = LinkFactory::class;
-
-    protected static function booted(): void
-    {
-        static::creating(function (Link $link) {
-            if (! $link->profile_id) {
-                $link->profile_id = Profile::first()?->id;
-            }
-        });
-    }
 
     /**
      * Get the table associated with the model.
@@ -69,11 +60,11 @@ class Link extends Model
     }
 
     /**
-     * Define the relationship with Profile model.
-     * A link belongs to a single profile.
+     * Define the relationship with User model.
+     * A link belongs to a single user.
      */
-    public function profile(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsTo(User::class);
     }
 }

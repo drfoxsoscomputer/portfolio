@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Model representing skills/abilities for a profile.
+ * Model representing skills/abilities for a user.
  *
  * The Skill model stores categorized skill entries for the user's portfolio.
- * Each skill belongs to a single profile and can have a category and sort order.
+ * Each skill belongs to a single user and can have a category and sort order.
  */
-#[Fillable(['profile_id', 'name', 'category', 'sort_order'])]
+#[Fillable(['user_id', 'name', 'category', 'sort_order'])]
 #[Hidden([])]
 class Skill extends Model
 {
@@ -25,15 +25,6 @@ class Skill extends Model
      * Get the factory class for the model.
      */
     protected string $factory = SkillFactory::class;
-
-    protected static function booted(): void
-    {
-        static::creating(function (Skill $skill) {
-            if (! $skill->profile_id) {
-                $skill->profile_id = Profile::first()?->id;
-            }
-        });
-    }
 
     /**
      * Get the table associated with the model.
@@ -64,11 +55,11 @@ class Skill extends Model
     }
 
     /**
-     * Define the relationship with Profile model.
-     * A skill belongs to a single profile.
+     * Define the relationship with User model.
+     * A skill belongs to a single user.
      */
-    public function profile(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsTo(User::class);
     }
 }

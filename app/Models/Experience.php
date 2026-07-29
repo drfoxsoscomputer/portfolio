@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Profile;
 use Database\Factories\ExperienceFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -15,9 +14,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * The Experience model stores detailed work history information including
  * company details, role, description, location, and employment duration. Each
- * experience belongs to a single profile.
+ * experience belongs to a single user.
  */
-#[Fillable(['profile_id', 'company', 'role', 'description', 'location', 'start_date', 'end_date', 'is_current'])]
+#[Fillable(['user_id', 'company', 'role', 'description', 'location', 'start_date', 'end_date', 'is_current'])]
 #[Hidden([])]
 class Experience extends Model
 {
@@ -27,15 +26,6 @@ class Experience extends Model
      * Get the factory class for the model.
      */
     protected string $factory = ExperienceFactory::class;
-
-    protected static function booted(): void
-    {
-        static::creating(function (Experience $experience) {
-            if (! $experience->profile_id) {
-                $experience->profile_id = Profile::first()?->id;
-            }
-        });
-    }
 
     /**
      * Get the table associated with the model.
@@ -66,11 +56,11 @@ class Experience extends Model
     }
 
     /**
-     * Define the relationship with Profile model.
-     * An experience belongs to a single profile.
+     * Define the relationship with User model.
+     * An experience belongs to a single user.
      */
-    public function profile(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsTo(User::class);
     }
 }

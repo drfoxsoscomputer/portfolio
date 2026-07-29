@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  *
  * The Project model stores professional project information including
  * technology stack, team details, and timeline. Each project belongs
- * to a single profile and can have associated images.
+ * to a single user and can have associated images.
  */
-#[Fillable(['profile_id', 'name', 'description', 'tech_stack', 'role', 'team_size', 'url', 'repo_url', 'start_date', 'end_date', 'is_current', 'is_featured'])]
+#[Fillable(['user_id', 'name', 'description', 'tech_stack', 'role', 'team_size', 'url', 'repo_url', 'start_date', 'end_date', 'is_current', 'is_featured'])]
 #[Hidden([])]
 class Project extends Model
 {
@@ -72,12 +72,12 @@ class Project extends Model
     }
 
     /**
-     * Define the relationship with Profile model.
-     * A project belongs to a single profile.
+     * Define the relationship with User model.
+     * A project belongs to a single user.
      */
-    public function profile(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsTo(User::class);
     }
 
     /**
