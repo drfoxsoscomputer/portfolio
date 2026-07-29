@@ -11,7 +11,7 @@ class CreateProject extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['profile_id'] = $data['profile_id'] ?? null;
+        $data['user_id'] = auth()->id();
         return $data;
     }
 }

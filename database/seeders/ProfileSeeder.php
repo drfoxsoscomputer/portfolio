@@ -10,6 +10,7 @@ use App\Models\Project;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileSeeder extends Seeder
 {
@@ -21,7 +22,7 @@ class ProfileSeeder extends Seeder
         $user = User::create([
             'name' => 'Denis Piña',
             'email' => 'daprthefox@gmail.com',
-            'password' => bcrypt('asdf1234'),
+            'password' => Hash::make('asdf1234'),
             'title' => 'Desarrollador Full Stack',
             'location' => 'Venezuela, Lara',
             'phone' => '+58 414-516-9484',
