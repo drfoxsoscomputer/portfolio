@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('links', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('profile_id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('label');
             $table->string('url');
             $table->string('icon')->nullable();
             $table->unsignedInteger('sort_order')->default(0);
-            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->timestamps();
         });
     }
