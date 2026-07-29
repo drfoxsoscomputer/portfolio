@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Skill;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -40,7 +41,7 @@ class SkillFactory extends Factory
         $skill = $skills[$this->faker->numberBetween(0, count($skills) - 1)];
 
         return [
-            'profile_id' => 1, // Will be overridden in tests
+            'user_id' => User::factory(),
             'name' => $skill['name'],
             'category' => $skill['category'],
             'sort_order' => $this->faker->numberBetween(0, 10),

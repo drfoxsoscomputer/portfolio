@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Experience;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class ExperienceFactory extends Factory
     public function definition(): array
     {
         return [
-            'profile_id' => 1, // Will be overridden in tests
+            'user_id' => User::factory(),
             'company' => $this->faker->company(),
             'role' => $this->faker->jobTitle(),
             'description' => $this->faker->optional()->text(200),
