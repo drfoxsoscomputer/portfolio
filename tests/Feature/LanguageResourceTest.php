@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Filament\Resources\Languages\Pages\ManageLanguages;
 use App\Models\Language;
-use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -25,7 +24,7 @@ class LanguageResourceTest extends TestCase
             'password' => 'asdf1234',
         ]);
 
-        Profile::factory()->create();
+        // User-based ownership - $this->user is the owner
     }
 
     public function test_can_list_languages(): void

@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Link;
+use App\Models\User;
 use Tests\TestCase;
 
 class LinkTest extends TestCase
@@ -14,25 +15,25 @@ class LinkTest extends TestCase
      */
     public function test_link_can_be_created(): void
     {
-        $profile = \App\Models\Profile::factory()->create();
-        $link = Link::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $link = Link::factory()->create(['user_id' => $user->id]);
 
         $this->assertModelExists($link);
         $this->assertInstanceOf(Link::class, $link);
-        $this->assertEquals($profile->id, $link->profile_id);
+        $this->assertEquals($user->id, $link->user_id);
         $this->assertNotEmpty($link->label);
     }
 
     /**
-     * Test that Link belongs to Profile relationship
+     * Test that Link belongs to User relationship
      */
-    public function test_link_belongs_to_profile(): void
+    public function test_link_belongs_to_user(): void
     {
-        $profile = \App\Models\Profile::factory()->create();
-        $link = Link::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $link = Link::factory()->create(['user_id' => $user->id]);
 
-        $this->assertInstanceOf(\App\Models\Profile::class, $link->profile);
-        $this->assertEquals($profile->id, $link->profile->id);
+        $this->assertInstanceOf(User::class, $link->user);
+        $this->assertEquals($user->id, $link->user->id);
     }
 
     /**
@@ -40,8 +41,8 @@ class LinkTest extends TestCase
      */
     public function test_link_has_fillable_attributes(): void
     {
-        $profile = \App\Models\Profile::factory()->create();
-        $link = Link::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $link = Link::factory()->create(['user_id' => $user->id]);
 
         $link->update([
             'label' => 'Test Label',
@@ -59,12 +60,12 @@ class LinkTest extends TestCase
      */
     public function test_link_default_ordering(): void
     {
-        $profile = \App\Models\Profile::factory()->create();
+        $user = User::factory()->create();
 
         // Create links with different sort_order values
-        Link::factory()->create(['profile_id' => $profile->id, 'label' => 'Link A', 'sort_order' => 5]);
-        Link::factory()->create(['profile_id' => $profile->id, 'label' => 'Link B', 'sort_order' => 1]);
-        Link::factory()->create(['profile_id' => $profile->id, 'label' => 'Link C', 'sort_order' => 3]);
+        Link::factory()->create(['user_id' => $user->id, 'label' => 'Link A', 'sort_order' => 5]);
+        Link::factory()->create(['user_id' => $user->id, 'label' => 'Link B', 'sort_order' => 1]);
+        Link::factory()->create(['user_id' => $user->id, 'label' => 'Link C', 'sort_order' => 3]);
 
         $links = Link::all();
         
@@ -78,8 +79,8 @@ class LinkTest extends TestCase
      */
     public function test_link_factory_creates_realistic_data(): void
     {
-        $profile = \App\Models\Profile::factory()->create();
-        $link = Link::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $link = Link::factory()->create(['user_id' => $user->id]);
 
         $this->assertNotEmpty($link->label);
         $this->assertNotEmpty($link->url);

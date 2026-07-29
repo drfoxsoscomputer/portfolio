@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Filament\Resources\Projects\Pages\ListProjects;
 use App\Models\Project;
-use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -25,7 +24,7 @@ class ProjectAdminTest extends TestCase
             'password' => 'asdf1234',
         ]);
 
-        Profile::factory()->create();
+        User::factory()->create();
     }
 
     public function test_can_list_projects(): void

@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Experience;
-use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,26 +16,26 @@ class ExperienceTest extends TestCase
      */
     public function test_experience_can_be_created(): void
     {
-        $profile = Profile::factory()->create();
-        $experience = Experience::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $experience = Experience::factory()->create(['user_id' => $user->id]);
 
         $this->assertModelExists($experience);
         $this->assertInstanceOf(Experience::class, $experience);
-        $this->assertEquals($profile->id, $experience->profile_id);
+        $this->assertEquals($user->id, $experience->user_id);
         $this->assertNotEmpty($experience->company);
         $this->assertNotEmpty($experience->role);
     }
 
     /**
-     * Test that Experience belongs to Profile relationship
+     * Test that Experience belongs to User relationship
      */
-    public function test_experience_belongs_to_profile(): void
+    public function test_experience_belongs_to_user(): void
     {
-        $profile = Profile::factory()->create();
-        $experience = Experience::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $experience = Experience::factory()->create(['user_id' => $user->id]);
 
-        $this->assertInstanceOf(Profile::class, $experience->profile);
-        $this->assertEquals($profile->id, $experience->profile->id);
+        $this->assertInstanceOf(User::class, $experience->user);
+        $this->assertEquals($user->id, $experience->user->id);
     }
 
     /**
@@ -43,8 +43,8 @@ class ExperienceTest extends TestCase
      */
     public function test_experience_has_fillable_attributes(): void
     {
-        $profile = Profile::factory()->create();
-        $experience = Experience::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $experience = Experience::factory()->create(['user_id' => $user->id]);
 
         $experience->update([
             'company' => 'Test Company',
@@ -62,25 +62,25 @@ class ExperienceTest extends TestCase
      */
     public function test_experience_default_ordering(): void
     {
-        $profile = Profile::factory()->create();
+        $user = User::factory()->create();
 
         // Create experiences with different start_date values
         Experience::factory()->create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'company' => 'Company A',
             'role' => 'Role A',
             'start_date' => '2024-01-15',
         ]);
 
         Experience::factory()->create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'company' => 'Company B',
             'role' => 'Role B',
             'start_date' => '2023-06-20',
         ]);
 
         Experience::factory()->create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'company' => 'Company C',
             'role' => 'Role C',
             'start_date' => '2024-03-10',
@@ -99,8 +99,8 @@ class ExperienceTest extends TestCase
      */
     public function test_experience_factory_creates_realistic_data(): void
     {
-        $profile = Profile::factory()->create();
-        $experience = Experience::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $experience = Experience::factory()->create(['user_id' => $user->id]);
 
         $this->assertNotEmpty($experience->company);
         $this->assertNotEmpty($experience->role);

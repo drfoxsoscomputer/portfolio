@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Filament\Resources\Skills\Pages\ManageSkills;
-use App\Models\Profile;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,7 +24,7 @@ class SkillResourceTest extends TestCase
             'password' => 'asdf1234',
         ]);
 
-        Profile::factory()->create();
+        // User-based ownership - $this->user is the owner
     }
 
     public function test_can_list_skills(): void

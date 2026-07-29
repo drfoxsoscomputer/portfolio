@@ -2,8 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Filament\Pages\ManageProfile;
-use App\Models\Profile;
+use App\Filament\Pages\Auth\EditProfile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -28,17 +27,17 @@ class ProfileAdminTest extends TestCase
 
     public function test_profile_page_is_accessible(): void
     {
-        Profile::factory()->create();
+        User::factory()->create();
 
         $this->actingAs($this->user)
             ->get('/admin/profile')
             ->assertSuccessful()
-            ->assertSee('Mi Perfil');
+            ->assertSee('Perfil');
     }
 
     public function test_profile_page_shows_form_with_all_fields(): void
     {
-        Profile::factory()->create();
+        User::factory()->create();
 
         $this->actingAs($this->user)
             ->get('/admin/profile')
@@ -51,10 +50,10 @@ class ProfileAdminTest extends TestCase
 
     public function test_profile_can_be_updated(): void
     {
-        Profile::factory()->create();
+        User::factory()->create();
 
         Livewire::actingAs($this->user)
-            ->test(ManageProfile::class)
+            ->test(EditProfile::class)
             ->set('data.name', 'Denis Piña Actualizado')
             ->set('data.title', 'Senior Developer')
             ->set('data.email', 'daprthefox@gmail.com')
@@ -64,7 +63,7 @@ class ProfileAdminTest extends TestCase
             ->call('save')
             ->assertHasNoErrors();
 
-        $this->assertDatabaseHas('profiles', [
+        $this->assertDatabaseHas('users', [
             'name' => 'Denis Piña Actualizado',
             'title' => 'Senior Developer',
             'summary' => 'Nuevo resumen',
@@ -73,10 +72,10 @@ class ProfileAdminTest extends TestCase
 
     public function test_profile_form_requires_name_and_email(): void
     {
-        Profile::factory()->create();
+        User::factory()->create();
 
         Livewire::actingAs($this->user)
-            ->test(ManageProfile::class)
+            ->test(EditProfile::class)
             ->set('data.name', '')
             ->set('data.email', '')
             ->call('save')

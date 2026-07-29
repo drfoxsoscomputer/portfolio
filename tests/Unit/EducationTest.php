@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\Education;
 use App\Models\Image;
-use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -17,27 +17,27 @@ class EducationTest extends TestCase
      */
     public function test_education_can_be_created(): void
     {
-        $profile = Profile::factory()->create();
-        $education = Education::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $education = Education::factory()->create(['user_id' => $user->id]);
 
         $this->assertModelExists($education);
         $this->assertInstanceOf(Education::class, $education);
-        $this->assertEquals($profile->id, $education->profile_id);
+        $this->assertEquals($user->id, $education->user_id);
         $this->assertNotEmpty($education->institution);
         $this->assertNotEmpty($education->degree);
         $this->assertIsInt($education->sort_order);
     }
 
     /**
-     * Test that Education belongs to Profile relationship
+     * Test that Education belongs to User relationship
      */
-    public function test_education_belongs_to_profile(): void
+    public function test_education_belongs_to_user(): void
     {
-        $profile = Profile::factory()->create();
-        $education = Education::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $education = Education::factory()->create(['user_id' => $user->id]);
 
-        $this->assertInstanceOf(Profile::class, $education->profile);
-        $this->assertEquals($profile->id, $education->profile->id);
+        $this->assertInstanceOf(User::class, $education->user);
+        $this->assertEquals($user->id, $education->user->id);
     }
 
     /**
@@ -45,8 +45,8 @@ class EducationTest extends TestCase
      */
     public function test_education_has_fillable_attributes(): void
     {
-        $profile = Profile::factory()->create();
-        $education = Education::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $education = Education::factory()->create(['user_id' => $user->id]);
 
         $education->update([
             'institution' => 'Test Institution',
@@ -66,25 +66,25 @@ class EducationTest extends TestCase
      */
     public function test_education_default_ordering(): void
     {
-        $profile = Profile::factory()->create();
+        $user = User::factory()->create();
 
         // Create educations with different sort_order values
         Education::factory()->create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'institution' => 'Institution A',
             'degree' => 'Degree A',
             'sort_order' => 5,
         ]);
 
         Education::factory()->create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'institution' => 'Institution B',
             'degree' => 'Degree B',
             'sort_order' => 1,
         ]);
 
         Education::factory()->create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'institution' => 'Institution C',
             'degree' => 'Degree C',
             'sort_order' => 3,
@@ -102,8 +102,8 @@ class EducationTest extends TestCase
      */
     public function test_education_images_relationship(): void
     {
-        $profile = Profile::factory()->create();
-        $education = Education::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $education = Education::factory()->create(['user_id' => $user->id]);
 
         $this->assertTrue(method_exists($education, 'images'));
 
@@ -124,8 +124,8 @@ class EducationTest extends TestCase
      */
     public function test_education_factory_creates_realistic_data(): void
     {
-        $profile = Profile::factory()->create();
-        $education = Education::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $education = Education::factory()->create(['user_id' => $user->id]);
 
         $this->assertNotEmpty($education->institution);
         $this->assertNotEmpty($education->degree);

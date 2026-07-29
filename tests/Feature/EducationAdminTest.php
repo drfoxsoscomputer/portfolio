@@ -6,7 +6,6 @@ use App\Filament\Resources\Education\Pages\CreateEducation;
 use App\Filament\Resources\Education\Pages\EditEducation;
 use App\Models\Education;
 use App\Models\Image;
-use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -27,7 +26,7 @@ class EducationAdminTest extends TestCase
             'password' => 'asdf1234',
         ]);
 
-        Profile::factory()->create();
+        User::factory()->create();
     }
 
     public function test_education_page_is_accessible(): void
@@ -58,7 +57,7 @@ class EducationAdminTest extends TestCase
             'institution' => 'Universidad de Prueba',
             'degree' => 'Licenciatura',
             'field' => 'Informática',
-            'profile_id' => Profile::first()?->id,
+            'user_id' => $this->user->id,
         ]);
     }
 
