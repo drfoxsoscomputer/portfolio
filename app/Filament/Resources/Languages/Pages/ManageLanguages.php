@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Languages\Pages;
 
 use App\Filament\Resources\Languages\LanguageResource;
-use App\Models\Profile;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
 
@@ -15,14 +14,12 @@ class ManageLanguages extends ManageRecords
     {
         return [
             CreateAction::make()
-                ->label('Nuevo idioma'),
+                ->label('Nuevo idioma')
+                ->mutateFormDataUsing(function (array $data): array {
+                    $data['user_id'] = auth()->id();
+
+                    return $data;
+                }),
         ];
-    }
-
-    protected function mutateFormDataBeforeCreate(array $data): array
-    {
-        $data['profile_id'] = Profile::first()?->id;
-
-        return $data;
     }
 }

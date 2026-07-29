@@ -11,7 +11,7 @@ class CreateEducation extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['profile_id'] = \App\Models\Profile::first()?->id;
+        $data['user_id'] = auth()->id();
         return $data;
     }
 }

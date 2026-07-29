@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Links\Pages;
 
 use App\Filament\Resources\Links\LinkResource;
-use App\Models\Profile;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
 
@@ -15,14 +14,12 @@ class ManageLinks extends ManageRecords
     {
         return [
             CreateAction::make()
-                ->label('Nuevo enlace'),
+                ->label('Nuevo enlace')
+                ->mutateFormDataUsing(function (array $data): array {
+                    $data['user_id'] = auth()->id();
+
+                    return $data;
+                }),
         ];
-    }
-
-    protected function mutateFormDataBeforeCreate(array $data): array
-    {
-        $data['profile_id'] = Profile::first()?->id;
-
-        return $data;
     }
 }

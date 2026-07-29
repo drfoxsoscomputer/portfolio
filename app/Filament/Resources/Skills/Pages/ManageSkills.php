@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Skills\Pages;
 
 use App\Filament\Resources\Skills\SkillResource;
-use App\Models\Profile;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
 
@@ -15,14 +14,12 @@ class ManageSkills extends ManageRecords
     {
         return [
             CreateAction::make()
-                ->label('Nueva habilidad'),
+                ->label('Nueva habilidad')
+                ->mutateFormDataUsing(function (array $data): array {
+                    $data['user_id'] = auth()->id();
+
+                    return $data;
+                }),
         ];
-    }
-
-    protected function mutateFormDataBeforeCreate(array $data): array
-    {
-        $data['profile_id'] = Profile::first()?->id;
-
-        return $data;
     }
 }
