@@ -1,0 +1,57 @@
+# openspec/config.yaml — Portfolio SDD Configuration
+schema: spec-driven
+
+context: |
+  Tech stack: Laravel 13.22.0 / PHP 8.3.31+ / Filament ~5.0 / SQLite / Vite + Tailwind CSS
+  Architecture: Portfolio webapp with admin panel. Profile data merged into User model.
+  All child models (Link, Skill, Language, Experience, Education, Project, Image) use user_id FK.
+  Testing: PHPUnit 12.5.12 with SQLite :memory:, 101 tests (18 test files).
+  Style: Spanish UI labels, neutral/professional Spanish for admin panel. English for code artifacts.
+
+strict_tdd: true
+
+rules:
+  proposal:
+    - Incluir plan de recuperación para cambios riesgosos
+    - Definir capacidades nuevas y modificadas con nombres estables
+    - Estimar límite de 400 líneas por PR
+  specs:
+    - Usar Given/When/Then para escenarios
+    - Usar RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Escribir specs en español neutral/profesional
+  design:
+    - Incluir diagramas de secuencia para flujos complejos
+    - Documentar decisiones de arquitectura con fundamento
+  tasks:
+    - Agrupar por fase usando numeración jerárquica
+    - Mantener tareas completables en una sesión
+    - Incluir forecast de carga de revisión por tarea
+  apply:
+    - Seguir patrones de código existentes
+    - Respetar Strict TDD: RED-GREEN-REFACTOR
+    tdd: true
+    test_command: php artisan test
+  verify:
+    test_command: php artisan test
+    build_command: npm run build
+    coverage_threshold: 0
+  archive:
+    - Advertir antes de fusionar deltas destructivos
+    - Sincronizar delta specs con main specs
+
+testing:
+  test_command: php artisan test
+  framework: phpunit 12.5.12
+  layers:
+    unit: true
+    feature: true
+    e2e: false
+  coverage: false
+  quality:
+    linter: laravel/pint
+    type_checker: null
+    formatter: laravel/pint
+
+languages:
+  artifacts: es
+  code: en

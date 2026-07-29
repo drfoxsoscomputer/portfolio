@@ -25,8 +25,6 @@ class Project extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    use Spatie\MediaLibrary\MediaCollections\Models\Media;
-
     /**
      * Get the factory class for the model.
      */
