@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * Model representing language proficiency for a user.
@@ -18,9 +20,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 #[Fillable(['user_id', 'name', 'level', 'sort_order'])]
 #[Hidden([])]
-class Language extends Model
+class Language extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     /**
      * Get the factory class for the model.
@@ -62,5 +64,16 @@ class Language extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('flags')
+            ->singleFile()
+            ->registerMediaConversions(function (Media $media) {
+                $this->addMediaConversion('thumb')
+                    ->width(50)
+                    ->height(50);
+            });
     }
 }

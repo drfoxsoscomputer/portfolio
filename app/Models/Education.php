@@ -75,4 +75,17 @@ class Education extends Model implements HasMedia
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+
+    /**
+     * Register media collections for Spatie Media Library.
+     * Define 'certificates' collection for storing educational certificates.
+     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('certificates')
+            ->useDisk('public')
+            ->maxFiles(5)
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'application/pdf'])
+            ->hasResponsiveImages();
+    }
 }

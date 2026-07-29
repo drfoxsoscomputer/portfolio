@@ -2,14 +2,10 @@
 
 ## Review Workload Forecast
 
-| Field | Value |
+| Campo | Valor |
 |-------|-------|
-| Estimated changed lines | ~1,600 (PR#7: ~450, PR#8: ~800, PR#9: ~350) |
-| 400-line budget risk | High |
-| Chained PRs recommended | Yes |
-| Suggested split | PR #7 → PR #8 → PR #9 (feature-branch-chain) |
-| Delivery strategy | auto-chain |
-| Chain strategy | feature-branch-chain |
+| Líneas estimadas | ~1,500 (PR#7: ~350, PR#8: ~800, PR#9: ~350) |
+| Riesgo 400-líneas | Alto |
 
 ```
 Decision needed before apply: No
@@ -18,64 +14,61 @@ Chain strategy: feature-branch-chain
 400-line budget risk: High
 ```
 
-### Suggested Work Units
+### Unidades de Trabajo
 
-| Unit | Goal | Likely PR | Notes |
-|------|------|-----------|-------|
-| 1 | Spatie Media Library + Admin Uploads | PR #7 | Base: `feature/portfolio-pr7-spatie` → feature/tracker |
-| 2 | Public Portfolio Page (Livewire + Tailwind) | PR #8 | Base: PR #7 branch |
-| 3 | Preview + Refresco + Multi-idioma + SEO | PR #9 | Base: PR #8 branch |
+| Unidad | Meta | PR | Base |
+|--------|------|----|------|
+| 1 | Spatie admin uploads + Education collection | PR #7 | `feature/portfolio-pr7-spatie` → tracker |
+| 2 | Livewire components + ContactForm + responsive | PR #8 | PR #7 branch |
+| 3 | Google Translate + Preview + SEO + i18n | PR #9 | PR #8 branch |
 
-## PR #7: Spatie Media Library + Admin Uploads
+## PR #7: Spatie Admin Uploads + Education Collection
 
-- [ ] 7.1 Install `filament/spatie-laravel-media-library-plugin:^5.0` + `spatie/laravel-medialibrary:^11.0`
-- [ ] 7.2 Publish Spatie migration, run `php artisan migrate`
-- [ ] 7.3 Create storage symlink if not present
-- [ ] 7.4 Update `User.php`: add `HasMedia` trait, `registerMediaCollections` for 'avatar' (singleFile), `getFirstMediaUrl` fallback
-- [ ] 7.5 Update `Project.php`: add `HasMedia`, `registerMediaCollections` for 'screenshots' (multi, 20 max, jpeg/png/webp)
-- [ ] 7.6 Update `Education.php`: add `HasMedia`, `registerMediaCollections` for 'certificates' (multi, 5 max, jpeg/png/pdf)
-- [ ] 7.7 **CREATE** `Course` model (`user_id`, name, institution, date, description, url_certificate, sort_order) + migration + `HasMedia` + 'certificates' collection
-- [ ] 7.8 **CREATE** `CourseResource` in Filament admin with `SpatieMediaLibraryFileUpload` for certificates
-- [ ] 7.9 Update `EditProfile` avatar field: replace with `SpatieMediaLibraryFileUpload`
-- [ ] 7.10 Update `ManageProjects`/`ListProjects`: replace images with `SpatieMediaLibraryFileUpload`
-- [ ] 7.11 Update `ManageEducation`/`ListEducation`: replace images with `SpatieMediaLibraryFileUpload`
-- [ ] 7.12 Update `UserFactory` + create `CourseFactory`
-- [ ] 7.13 Update `ProfileSeeder` to handle Spatie media
-- [ ] 7.14 Write tests for Course CRUD + media uploads
-- [ ] 7.15 Clean cached schema: delete `database/schema/sqlite-schema.sql`
+- [ ] 7.1 Agregar `registerMediaCollections()` a `Education.php` para colección 'certificates' (multi, 5 max, jpeg/png/pdf)
+- [ ] 7.2 Agregar `SpatieMediaLibraryFileUpload` a `SkillResource` para colección 'icons' (singleFile)
+- [ ] 7.3 Agregar `SpatieMediaLibraryFileUpload` a `LanguageResource` para colección 'flags' (singleFile)
+- [ ] 7.4 Agregar `SpatieMediaLibraryFileUpload` a `ExperienceResource` para colección 'logos' (singleFile)
+- [ ] 7.5 Actualizar `SkillFactory`, `LanguageFactory`, `ExperienceFactory` para media Spatie
+- [ ] 7.6 Actualizar `ProfileSeeder` para generar media de prueba con Spatie
+- [ ] 7.7 Tests: validación SpatieMediaLibraryFileUpload (tipos, max files)
+- [ ] 7.8 Tests: factory/seeders generan media correctamente
 
-## PR #8: Public Portfolio Page (Livewire + Tailwind)
+## PR #8: Livewire Components + ContactForm
 
-- [ ] 8.1 Create layout `resources/views/layouts/portfolio.blade.php` (meta, dark mode, fonts, Tailwind, Alpine, print CSS)
-- [ ] 8.2 Create `PortfolioPage` Full Page Livewire component (loads User with eager loading)
-- [ ] 8.3 Create `HeroSection` component (avatar from Spatie, name, title, summary, social links)
-- [ ] 8.4 Create `SkillsSection` component (grouped by category, Alpine filter)
-- [ ] 8.5 Create `ProjectsSection` component (grid cards, Spatie screenshots, tech_stack chips, links)
-- [ ] 8.6 Create `ExperienceSection` component (vertical timeline)
-- [ ] 8.7 Create `EducationSection` component (cards with Spatie certificates)
-- [ ] 8.8 Create `CoursesSection` component (cards with certificate images from Spatie)
-- [ ] 8.9 Create `LinktreeSection` component (social/professional links as button cards)
-- [ ] 8.10 Create `ServicesSection` component (services offered, config or new model)
-- [ ] 8.11 Create `ContactForm` Livewire component (name, email, message, stores in DB)
-- [ ] 8.12 Create `LanguagesSection` component (level bars)
-- [ ] 8.13 Create `StatsSection` component (animated counters, Alpine Intersection Observer)
-- [ ] 8.14 Update `routes/web.php`: `GET /` → `PortfolioPage` (replace welcome view)
-- [ ] 8.15 Implement dark mode toggle (Alpine + localStorage, default dark)
-- [ ] 8.16 Implement responsive design (mobile-first Tailwind)
-- [ ] 8.17 Add scroll animations (Intersection Observer, fade-in)
-- [ ] 8.18 Add print CSS for CV printing
-- [ ] 8.19 Write/update tests for all portfolio components
+- [ ] 8.1 Crear layout `resources/views/layouts/portfolio.blade.php` (meta, dark mode, Alpine, Tailwind, print CSS)
+- [ ] 8.2 Crear `PortfolioPage` Full Page Livewire (`app/Http/Livewire/Portfolio/`) con eager loading de User + relaciones
+- [ ] 8.3 Crear `HeroSection` (avatar Spatie, nombre, título, summary, links sociales)
+- [ ] 8.4 Crear `SkillsSection` (iconos Spatie, group por categoría, Alpine filter)
+- [ ] 8.5 Crear `ProjectsSection` (grid cards + screenshots Spatie, tech_stack, links)
+- [ ] 8.6 Crear `ExperienceSection` (timeline vertical + logos Spatie)
+- [ ] 8.7 Crear `EducationSection` (cards + certificates Spatie)
+- [ ] 8.8 Crear `LanguagesSection` (flags Spatie, nivel con barras)
+- [ ] 8.9 Crear `StatsSection` (contadores animados con Alpine Intersection Observer)
+- [ ] 8.10 Crear `LinktreeSection` (links sociales como botones)
+- [ ] 8.11 Crear `CoursesSection` (cards + certificates Spatie)
+- [ ] 8.12 Crear `ContactRequest` model + migration (name, email, message, read_at)
+- [ ] 8.13 Crear `ContactNotifierInterface` + `NotificationContactNotifier` (notificación admin Filament). SIN email.
+- [ ] 8.14 Crear `ContactForm` Livewire component (formulario + store + notificar admin)
+- [ ] 8.15 Actualizar `routes/web.php`: `GET /` → `PortfolioPage`
+- [ ] 8.16 Dark mode toggle (Alpine + localStorage, default dark)
+- [ ] 8.17 Responsive mobile-first (Tailwind)
+- [ ] 8.18 Scroll animations fade-in (Intersection Observer)
+- [ ] 8.19 Print CSS para recruiters
+- [ ] 8.20 Tests: todos los componentes renderizan datos correctamente
+- [ ] 8.21 Tests: ContactForm valida, guarda y notifica
 
-## PR #9: Preview + Refresco + Multi-idioma + SEO
+## PR #9: Google Translate + Preview + SEO + i18n
 
-- [ ] 9.1 Add "Ver portafolio" button in admin header (opens new tab)
-- [ ] 9.2 Add modal preview option in admin panel
-- [ ] 9.3 Create `PortfolioUpdated` event + listener (updates timestamp when admin modifies public data)
-- [ ] 9.4 Implement refresh check in `PortfolioPage`
-- [ ] 9.5 Create lang files: `lang/es.json`, `lang/en.json`
-- [ ] 9.6 Add language toggle in portfolio layout (Alpine + localStorage)
-- [ ] 9.7 Add SEO meta tags (title, description, keywords)
-- [ ] 9.8 Add Open Graph meta tags (og:title, og:description, og:image, og:url, og:type)
-- [ ] 9.9 Add Twitter Card meta tags (card, title, description, image, site)
-- [ ] 9.10 Add Schema.org JSON-LD for Person
-- [ ] 9.11 Update/regression tests for preview, i18n, SEO, refresh
+- [ ] 9.1 Crear `GoogleTranslateService` con API key configurable (NO OpenAI)
+- [ ] 9.2 Crear `lang/es.json`, `lang/en.json`
+- [ ] 9.3 Agregar toggle de idioma en layout (Alpine + localStorage)
+- [ ] 9.4 Agregar botón "Ver portafolio" en admin header (nuevo tab)
+- [ ] 9.5 Crear `PortfolioUpdated` event + listener (actualiza `last_updated` en User)
+- [ ] 9.6 Implementar polling simple en `PortfolioPage` (cada 30s, compara timestamp)
+- [ ] 9.7 SEO meta tags (title, description, keywords)
+- [ ] 9.8 Open Graph (og:title, og:description, og:image, og:url, og:type)
+- [ ] 9.9 Twitter Card (summary_large_image)
+- [ ] 9.10 Schema.org JSON-LD para Person
+- [ ] 9.11 Tests: Google Translate service con mock HTTP
+- [ ] 9.12 Tests: refresh detecta cambios de timestamp
+- [ ] 9.13 Tests: meta tags SEO presentes en DOM

@@ -154,8 +154,8 @@ class ProfileSeeder extends Seeder
             Skill::create(array_merge(['user_id' => $user->id], $skillData));
         }
 
-        // Create Education
-        Education::create([
+        // Create Education with Spatie media
+        $education = Education::create([
             'user_id' => $user->id,
             'institution' => 'IU "Andrés Eloy Blanco"',
             'degree' => 'TSU',
@@ -166,6 +166,19 @@ class ProfileSeeder extends Seeder
             'is_current' => false,
             'sort_order' => 1,
         ]);
+        
+        // Add certificate media for education
+        $education->addMediaFromString('certificate-data-1')
+            ->usingFileName('certificate-1.jpg')
+            ->toMediaCollection('certificates');
+        
+        $education->addMediaFromString('certificate-data-2')
+            ->usingFileName('certificate-2.pdf')
+            ->toMediaCollection('certificates');
+        
+        $education->addMediaFromString('certificate-data-3')
+            ->usingFileName('certificate-3.png')
+            ->toMediaCollection('certificates');
 
         Education::create([
             'user_id' => $user->id,

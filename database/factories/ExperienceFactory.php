@@ -32,6 +32,8 @@ class ExperienceFactory extends Factory
             'start_date' => $this->faker->dateTimeBetween('-10 years', 'now'),
             'end_date' => $this->faker->optional()->dateTimeBetween('-10 years', 'now'),
             'is_current' => $this->faker->boolean(20),
+            // Media will be handled by trait HasMedia, factory doesn't need to set it directly
+            // Spatie media will be assigned separately when model is saved
         ];
     }
 }

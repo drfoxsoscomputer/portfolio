@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Languages;
 
-use App\Filament\Resources\Languages\Pages\ManageLanguages;
+    use App\Filament\Resources\Languages\Pages\ManageLanguages;
 use App\Models\Language;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -10,6 +10,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -53,7 +54,12 @@ class LanguageResource extends Resource
                     ->label('Orden')
                     ->numeric()
                     ->default(0),
+                SpatieMediaLibraryFileUpload::make('flags')
+                    ->label('Banderas')
+                    ->collection('flags')
+                    ->singleFile(),
             ]);
+        });
     }
 
     public static function table(Table $table): Table
