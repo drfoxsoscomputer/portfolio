@@ -54,12 +54,18 @@ php artisan serve
 
 El panel está en `/admin` con interfaz en español.
 
-**Credenciales por defecto:**
+**Primer acceso:**
 
-| Campo | Valor |
-|-------|-------|
-| **Email** | `daprthefox@gmail.com` |
-| **Password** | `asdf1234` |
+```bash
+# Opción 1 — Usar el seeder (crea usuario principal con datos del CV)
+php artisan migrate --seed
+
+# Opción 2 — Crear un usuario desde cero con Filament
+php artisan make:filament-user
+# Te pedirá: name, email, password
+```
+
+El `ProfileSeeder` crea un usuario administrador por defecto con todos los datos del CV. Una vez dentro del panel, puedes modificar los datos del perfil desde **Perfil** (menú superior derecho → Profile) o crear nuevos usuarios desde la sección de administración de Filament (si está habilitada).
 
 ### Recursos del panel
 
