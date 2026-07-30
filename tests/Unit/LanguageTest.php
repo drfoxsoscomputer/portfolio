@@ -12,7 +12,7 @@ class LanguageTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test that the Language model can be created
+     * Test que el modelo Language puede crearse
      */
     public function test_language_can_be_created(): void
     {
@@ -28,7 +28,7 @@ class LanguageTest extends TestCase
     }
 
     /**
-     * Test that Language belongs to User relationship
+     * Test que Language pertenece a la relación User
      */
     public function test_language_belongs_to_user(): void
     {
@@ -40,7 +40,7 @@ class LanguageTest extends TestCase
     }
 
     /**
-     * Test that Language has the correct fillable attributes
+     * Test que Language tiene los atributos fillable correctos
      */
     public function test_language_has_fillable_attributes(): void
     {
@@ -59,13 +59,13 @@ class LanguageTest extends TestCase
     }
 
     /**
-     * Test that Language has the correct default ordering by sort_order (ascending)
+     * Test que Language tiene el ordenamiento correcto por sort_order (ascendente)
      */
     public function test_language_default_ordering(): void
     {
         $user = User::factory()->create();
 
-        // Create languages with different sort_order values
+        // Crear idiomas con diferentes valores de sort_order
         Language::factory()->create(['user_id' => $user->id, 'name' => 'Language A', 'sort_order' => 5]);
         Language::factory()->create(['user_id' => $user->id, 'name' => 'Language B', 'sort_order' => 1]);
         Language::factory()->create(['user_id' => $user->id, 'name' => 'Language C', 'sort_order' => 3]);
@@ -78,7 +78,7 @@ class LanguageTest extends TestCase
     }
 
     /**
-     * Test valid language levels
+     * Test de niveles de idioma válidos
      */
     public function test_language_level_validation(): void
     {
@@ -90,7 +90,7 @@ class LanguageTest extends TestCase
     }
 
     /**
-     * Test factory creates realistic data
+     * Test que el factory crea datos realistas
      */
     public function test_language_factory_creates_realistic_data(): void
     {

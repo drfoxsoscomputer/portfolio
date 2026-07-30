@@ -10,7 +10,7 @@ class ProjectTest extends TestCase
     use \Illuminate\Foundation\Testing\RefreshDatabase;
 
     /**
-     * Test that the Project model can be created
+     * Test que el modelo Project puede crearse
      */
     public function test_project_can_be_created(): void
     {
@@ -25,7 +25,7 @@ class ProjectTest extends TestCase
     }
 
     /**
-     * Test that Project belongs to User relationship
+     * Test que Project pertenece a la relación User
      */
     public function test_project_belongs_to_user(): void
     {
@@ -37,7 +37,7 @@ class ProjectTest extends TestCase
     }
 
     /**
-     * Test that Project has the correct fillable attributes
+     * Test que Project tiene los atributos fillable correctos
      */
     public function test_project_has_fillable_attributes(): void
     {
@@ -58,13 +58,13 @@ class ProjectTest extends TestCase
     }
 
     /**
-     * Test that Project has the correct default ordering by start_date
+     * Test que Project tiene el ordenamiento correcto por start_date
      */
     public function test_project_default_ordering(): void
     {
         $user = User::factory()->create();
 
-        // Create projects with different start_date values
+        // Crear proyectos con diferentes valores de start_date
         Project::factory()->create([
             'user_id' => $user->id,
             'name' => 'Project A',
@@ -85,14 +85,14 @@ class ProjectTest extends TestCase
 
         $projects = Project::all();
 
-        // Descending order by start_date: Project C (2024-03-10) first, then Project A (2024-01-15), then Project B (2023-06-20)
+        // Orden descendente por start_date: Project C (2024-03-10) primero, luego Project A (2024-01-15), luego Project B (2023-06-20)
         $this->assertEquals('Project C', $projects[0]->name);
         $this->assertEquals('Project A', $projects[1]->name);
         $this->assertEquals('Project B', $projects[2]->name);
     }
 
     /**
-     * Test that Project tech_stack casting works correctly
+     * Test que el casting de tech_stack funciona correctamente
      */
     public function test_project_tech_stack_casting(): void
     {
@@ -110,7 +110,7 @@ class ProjectTest extends TestCase
     }
 
     /**
-     * Test that Project has morphMany Images relationship method
+     * Test que Project tiene el método de relación morphMany Images
      */
     public function test_project_images_relationship(): void
     {
@@ -121,7 +121,7 @@ class ProjectTest extends TestCase
     }
 
     /**
-     * Test factory creates realistic data
+     * Test que el factory crea datos realistas
      */
     public function test_project_factory_creates_realistic_data(): void
     {

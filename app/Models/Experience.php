@@ -13,11 +13,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
- * Model representing work experience entries.
+ * Modelo que representa entradas de experiencia laboral.
  *
- * The Experience model stores detailed work history information including
- * company details, role, description, location, and employment duration. Each
- * experience belongs to a single user.
+ * El modelo Experience almacena información detallada del historial laboral
+ * incluyendo empresa, rol, descripción, ubicación y duración del empleo.
+ * Cada experiencia pertenece a un solo usuario.
  */
 #[Fillable(['user_id', 'company', 'role', 'description', 'location', 'start_date', 'end_date', 'is_current'])]
 #[Hidden([])]
@@ -26,32 +26,32 @@ class Experience extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     /**
-     * Get the factory class for the model.
+     * Obtiene la clase factory del modelo.
      */
     protected string $factory = ExperienceFactory::class;
 
     /**
-     * Get the table associated with the model.
+     * Obtiene la tabla asociada al modelo.
      */
     protected $table = 'experiences';
 
     /**
-     * Get the primary key for the model.
+     * Obtiene la clave primaria del modelo.
      */
     protected $primaryKey = 'id';
 
     /**
-     * Indicates if the model's ID is auto-incrementing.
+     * Indica si el ID del modelo es autoincremental.
      */
     public $incrementing = true;
 
     /**
-     * The number of models to return for a single query.
+     * Número de modelos a devolver por consulta.
      */
     protected $perPage = 15;
 
     /**
-     * Override the base query to apply default ordering by start_date (descending).
+     * Sobrescribe la consulta base para aplicar ordenamiento por start_date (descendente).
      */
     public function newQuery(): \Illuminate\Database\Eloquent\Builder
     {
@@ -59,8 +59,8 @@ class Experience extends Model implements HasMedia
     }
 
     /**
-     * Define the relationship with User model.
-     * An experience belongs to a single user.
+     * Define la relación con el modelo User.
+     * Una experiencia pertenece a un solo usuario.
      */
     public function user(): BelongsTo
     {

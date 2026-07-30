@@ -24,7 +24,7 @@ class ExperienceAdminTest extends TestCase
             'password' => 'asdf1234',
         ]);
 
-        // User-based ownership - $this->user is the owner
+        // Propiedad basada en User - $this->user es el propietario
     }
 
     public function test_can_list_experiences(): void

@@ -11,7 +11,7 @@ class UserTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test that the User model can be created with profile-style fields
+     * Test que el modelo User puede crearse con campos de perfil
      */
     public function test_user_can_be_created(): void
     {
@@ -33,7 +33,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * Test that User has the correct fillable attributes (including profile fields)
+     * Test que User tiene los atributos fillable correctos (incluyendo campos de perfil)
      */
     public function test_user_has_fillable_attributes(): void
     {
@@ -57,7 +57,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * Test that User has all relationship methods (formerly profile relationships)
+     * Test que User tiene todos los métodos de relación
      */
     public function test_user_has_relationship_methods(): void
     {

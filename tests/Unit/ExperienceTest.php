@@ -12,7 +12,7 @@ class ExperienceTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test that the Experience model can be created
+     * Test que el modelo Experience puede crearse
      */
     public function test_experience_can_be_created(): void
     {
@@ -27,7 +27,7 @@ class ExperienceTest extends TestCase
     }
 
     /**
-     * Test that Experience belongs to User relationship
+     * Test que Experience pertenece a la relación User
      */
     public function test_experience_belongs_to_user(): void
     {
@@ -39,7 +39,7 @@ class ExperienceTest extends TestCase
     }
 
     /**
-     * Test that Experience has the correct fillable attributes
+     * Test que Experience tiene los atributos fillable correctos
      */
     public function test_experience_has_fillable_attributes(): void
     {
@@ -58,13 +58,13 @@ class ExperienceTest extends TestCase
     }
 
     /**
-     * Test that Experience has the correct default ordering by start_date (descending)
+     * Test que Experience tiene el ordenamiento correcto por start_date (descendente)
      */
     public function test_experience_default_ordering(): void
     {
         $user = User::factory()->create();
 
-        // Create experiences with different start_date values
+        // Crear experiencias con diferentes valores de start_date
         Experience::factory()->create([
             'user_id' => $user->id,
             'company' => 'Company A',
@@ -88,14 +88,14 @@ class ExperienceTest extends TestCase
 
         $experiences = Experience::all();
 
-        // Descending order by start_date: Company C (2024-03-10) first, then Company A (2024-01-15), then Company B (2023-06-20)
+        // Orden descendente por start_date: Company C (2024-03-10) primero, luego Company A (2024-01-15), luego Company B (2023-06-20)
         $this->assertEquals('Company C', $experiences[0]->company);
         $this->assertEquals('Company A', $experiences[1]->company);
         $this->assertEquals('Company B', $experiences[2]->company);
     }
 
     /**
-     * Test factory creates realistic data
+     * Test que el factory crea datos realistas
      */
     public function test_experience_factory_creates_realistic_data(): void
     {

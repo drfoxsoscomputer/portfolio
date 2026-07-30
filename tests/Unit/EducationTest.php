@@ -13,7 +13,7 @@ class EducationTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test that the Education model can be created
+     * Test que el modelo Education puede crearse
      */
     public function test_education_can_be_created(): void
     {
@@ -29,7 +29,7 @@ class EducationTest extends TestCase
     }
 
     /**
-     * Test that Education belongs to User relationship
+     * Test que Education pertenece a la relación User
      */
     public function test_education_belongs_to_user(): void
     {
@@ -41,7 +41,7 @@ class EducationTest extends TestCase
     }
 
     /**
-     * Test that Education has the correct fillable attributes
+     * Test que Education tiene los atributos fillable correctos
      */
     public function test_education_has_fillable_attributes(): void
     {
@@ -62,13 +62,13 @@ class EducationTest extends TestCase
     }
 
     /**
-     * Test that Education has the correct default ordering by sort_order (ascending)
+     * Test que Education tiene el ordenamiento correcto por sort_order (ascendente)
      */
     public function test_education_default_ordering(): void
     {
         $user = User::factory()->create();
 
-        // Create educations with different sort_order values
+        // Crear formaciones con diferentes valores de sort_order
         Education::factory()->create([
             'user_id' => $user->id,
             'institution' => 'Institution A',
@@ -98,7 +98,7 @@ class EducationTest extends TestCase
     }
 
     /**
-     * Test that Education has morphMany Images relationship method
+     * Test que Education tiene el método de relación morphMany Images
      */
     public function test_education_images_relationship(): void
     {
@@ -107,7 +107,7 @@ class EducationTest extends TestCase
 
         $this->assertTrue(method_exists($education, 'images'));
 
-        // Test that we can actually load images for education
+        // Verifica que se puedan cargar imágenes para la formación
         $image = Image::factory()->create([
             'imageable_type' => 'Education',
             'imageable_id' => $education->id,
@@ -120,7 +120,7 @@ class EducationTest extends TestCase
     }
 
     /**
-     * Test factory creates realistic data
+     * Test que el factory crea datos realistas
      */
     public function test_education_factory_creates_realistic_data(): void
     {

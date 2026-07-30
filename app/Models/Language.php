@@ -13,11 +13,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
- * Model representing language proficiency for a user.
+ * Modelo que representa el nivel de idioma de un usuario.
  *
- * The Language model stores language skills for the user's portfolio.
- * Each language belongs to a single user and can have a proficiency level
- * and sort order.
+ * El modelo Language almacena los idiomas del portafolio del usuario.
+ * Cada idioma pertenece a un solo usuario y puede tener un nivel
+ * y orden de clasificación.
  */
 #[Fillable(['user_id', 'name', 'level', 'sort_order'])]
 #[Hidden([])]
@@ -26,32 +26,32 @@ class Language extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     /**
-     * Get the factory class for the model.
+     * Obtiene la clase factory del modelo.
      */
     protected string $factory = LanguageFactory::class;
 
     /**
-     * Get the table associated with the model.
+     * Obtiene la tabla asociada al modelo.
      */
     protected $table = 'languages';
 
     /**
-     * Get the primary key for the model.
+     * Obtiene la clave primaria del modelo.
      */
     protected $primaryKey = 'id';
 
     /**
-     * Indicates if the model's ID is auto-incrementing.
+     * Indica si el ID del modelo es autoincremental.
      */
     public $incrementing = true;
 
     /**
-     * The number of models to return for a single query.
+     * Número de modelos a devolver por consulta.
      */
     protected $perPage = 15;
 
     /**
-     * Override the base query to apply default ordering by sort_order (ascending).
+     * Sobrescribe la consulta base para aplicar ordenamiento por sort_order (ascendente).
      */
     public function newQuery(): \Illuminate\Database\Eloquent\Builder
     {
@@ -59,8 +59,8 @@ class Language extends Model implements HasMedia
     }
 
     /**
-     * Define the relationship with User model.
-     * A language belongs to a single user.
+     * Define la relación con el modelo User.
+     * Un idioma pertenece a un solo usuario.
      */
     public function user(): BelongsTo
     {

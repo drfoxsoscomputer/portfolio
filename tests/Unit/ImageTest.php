@@ -33,7 +33,7 @@ class ImageTest extends TestCase
         $project = Project::factory()->create(['user_id' => $user->id]);
         $education = Education::factory()->create(['user_id' => $user->id]);
 
-        // Attach to User
+        // Asociar al User
         $userImage = Image::factory()->create([
             'imageable_id' => $user->id,
             'imageable_type' => $user->getMorphClass(),
@@ -41,7 +41,7 @@ class ImageTest extends TestCase
         $this->assertInstanceOf(User::class, $userImage->imageable);
         $this->assertEquals($user->id, $userImage->imageable->id);
 
-        // Attach to Project
+        // Asociar al Project
         $projectImage = Image::factory()->create([
             'imageable_id' => $project->id,
             'imageable_type' => $project->getMorphClass(),
@@ -49,7 +49,7 @@ class ImageTest extends TestCase
         $this->assertInstanceOf(Project::class, $projectImage->imageable);
         $this->assertEquals($project->id, $projectImage->imageable->id);
 
-        // Attach to Education
+        // Asociar al Education
         $educationImage = Image::factory()->create([
             'imageable_id' => $education->id,
             'imageable_type' => $education->getMorphClass(),

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Hash;
 class ProfileSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Ejecuta los seeders de la base de datos.
      */
     public function run(): void
     {
@@ -31,7 +31,7 @@ class ProfileSeeder extends Seeder
             'avatar' => null,
         ]);
 
-        // Create Links
+        // Crear enlaces de contacto
         Link::create([
             'user_id' => $user->id,
             'label' => 'LinkedIn',
@@ -56,7 +56,7 @@ class ProfileSeeder extends Seeder
             'sort_order' => 3,
         ]);
 
-        // Create Projects with real data from CV
+        // Crear proyectos con datos reales del CV
         Project::create([
             'user_id' => $user->id,
             'name' => 'GameWorld Ecommerce',
@@ -102,7 +102,7 @@ class ProfileSeeder extends Seeder
             'is_featured' => true,
         ]);
 
-        // Create Experiences
+        // Crear experiencias laborales
         Experience::create([
             'user_id' => $user->id,
             'company' => 'Soporte Técnico IT',
@@ -125,7 +125,7 @@ class ProfileSeeder extends Seeder
             'is_current' => false,
         ]);
 
-        // Create Skills organized by category
+        // Crear habilidades organizadas por categoría
         $skills = [
             // Lenguajes
             ['name' => 'JavaScript', 'category' => 'Lenguajes', 'sort_order' => 1],
@@ -154,7 +154,7 @@ class ProfileSeeder extends Seeder
             Skill::create(array_merge(['user_id' => $user->id], $skillData));
         }
 
-        // Create Education with Spatie media
+        // Crear formación académica
         $education = Education::create([
             'user_id' => $user->id,
             'institution' => 'IU "Andrés Eloy Blanco"',
@@ -181,7 +181,7 @@ class ProfileSeeder extends Seeder
             'sort_order' => 2,
         ]);
 
-        // Create Languages
+        // Crear idiomas
         Language::create([
             'user_id' => $user->id,
             'name' => 'Español',
@@ -196,7 +196,7 @@ class ProfileSeeder extends Seeder
             'sort_order' => 2,
         ]);
 
-        // Create Courses
+        // Crear cursos
         Course::create([
             'user_id' => $user->id,
             'name' => 'Técnicas Avanzadas de Laravel',

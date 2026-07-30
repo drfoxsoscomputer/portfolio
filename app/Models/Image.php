@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * Model representing an image that can be attached to multiple entity types.
+ * Modelo que representa una imagen que puede asociarse a múltiples entidades.
  *
- * The Image model uses polymorphic relationships to allow images to be attached
- * to User, Project, and Education entities. This enables flexible media
- * management across different CV content types (avatars, screenshots, logos, certificates).
+ * El modelo Image utiliza relaciones polimórficas para permitir que las imágenes
+ * se asocien a entidades User, Project y Education. Esto permite una gestión
+ * flexible de medios en diferentes tipos de contenido del CV.
  */
 #[Fillable(['url', 'alt_text', 'type', 'sort_order'])]
 #[Hidden([])]
@@ -23,32 +23,32 @@ class Image extends Model
     use HasFactory;
 
     /**
-     * Get the factory class for the model.
+     * Obtiene la clase factory del modelo.
      */
     protected string $factory = ImageFactory::class;
 
     /**
-     * Get the table associated with the model.
+     * Obtiene la tabla asociada al modelo.
      */
     protected $table = 'images';
 
     /**
-     * Get the primary key for the model.
+     * Obtiene la clave primaria del modelo.
      */
     protected $primaryKey = 'id';
 
     /**
-     * Indicates if the model's ID is auto-incrementing.
+     * Indica si el ID del modelo es autoincremental.
      */
     public $incrementing = true;
 
     /**
-     * The number of models to return for a single query.
+     * Número de modelos a devolver por consulta.
      */
     protected $perPage = 15;
 
     /**
-     * Override the base query to apply default ordering by sort_order (ascending).
+     * Sobrescribe la consulta base para aplicar ordenamiento por sort_order (ascendente).
      */
     public function newQuery(): \Illuminate\Database\Eloquent\Builder
     {
@@ -56,8 +56,8 @@ class Image extends Model
     }
 
     /**
-     * Define the polymorphic relationship to attach the image to any entity.
-     * The imageable type can be User, Project, or Education based on the morph map.
+     * Define la relación polimórfica para asociar la imagen a cualquier entidad.
+     * El tipo imageable puede ser User, Project o Education según el morph map.
      */
     public function imageable(): MorphTo
     {

@@ -11,7 +11,7 @@ class LinkTest extends TestCase
     use \Illuminate\Foundation\Testing\RefreshDatabase;
 
     /**
-     * Test that the Link model can be created
+     * Test que el modelo Link puede crearse
      */
     public function test_link_can_be_created(): void
     {
@@ -25,7 +25,7 @@ class LinkTest extends TestCase
     }
 
     /**
-     * Test that Link belongs to User relationship
+     * Test que Link pertenece a la relación User
      */
     public function test_link_belongs_to_user(): void
     {
@@ -37,7 +37,7 @@ class LinkTest extends TestCase
     }
 
     /**
-     * Test that Link has the correct fillable attributes
+     * Test que Link tiene los atributos fillable correctos
      */
     public function test_link_has_fillable_attributes(): void
     {
@@ -56,13 +56,13 @@ class LinkTest extends TestCase
     }
 
     /**
-     * Test that Link has the correct default ordering
+     * Test que Link tiene el ordenamiento correcto por defecto
      */
     public function test_link_default_ordering(): void
     {
         $user = User::factory()->create();
 
-        // Create links with different sort_order values
+        // Crear enlaces con diferentes valores de sort_order
         Link::factory()->create(['user_id' => $user->id, 'label' => 'Link A', 'sort_order' => 5]);
         Link::factory()->create(['user_id' => $user->id, 'label' => 'Link B', 'sort_order' => 1]);
         Link::factory()->create(['user_id' => $user->id, 'label' => 'Link C', 'sort_order' => 3]);
@@ -75,7 +75,7 @@ class LinkTest extends TestCase
     }
 
     /**
-     * Test factory creates realistic data
+     * Test que el factory crea datos realistas
      */
     public function test_link_factory_creates_realistic_data(): void
     {

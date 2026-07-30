@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ExperienceFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * Contraseña actual utilizada por el factory.
      */
     protected static ?string $password;
 
     /**
-     * Define the model's default state.
+     * Define el estado por defecto del modelo.
      *
      * @return array<string, mixed>
      */
@@ -36,12 +36,12 @@ class ExperienceFactory extends Factory
     }
 
     /**
-     * Configure the model factory to create Spatie media after model creation.
+     * Configura el factory para crear medios de Spatie después de crear el modelo.
      */
     public function withMedia(): self
     {
         return $this->afterCreating(function (Experience $experience) {
-            // Create a logo for the experience using Spatie Media Library
+            // Crea un logo para la experiencia usando Spatie Media Library
             $experience->addMediaFromString('logo-data')
                 ->usingFileName('logo-'.$experience->id.'.webp')
                 ->toMediaCollection('logos');

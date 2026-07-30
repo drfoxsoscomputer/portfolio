@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class SkillFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * Contraseña actual utilizada por el factory.
      */
     protected static ?string $password;
 
     /**
-     * Define the model's default state.
+     * Define el estado por defecto del modelo.
      *
      * @return array<string, mixed>
      */
@@ -49,12 +49,12 @@ class SkillFactory extends Factory
     }
 
     /**
-     * Configure the model factory to create Spatie media after model creation.
+     * Configura el factory para crear medios de Spatie después de crear el modelo.
      */
     public function withMedia(): self
     {
         return $this->afterCreating(function (Skill $skill) {
-            // Create an icon for the skill using Spatie Media Library
+            // Crea un icono para la habilidad usando Spatie Media Library
             $skill->addMediaFromString('icon-data')
                 ->usingFileName('icon-'.$skill->id.'.webp')
                 ->toMediaCollection('icons');

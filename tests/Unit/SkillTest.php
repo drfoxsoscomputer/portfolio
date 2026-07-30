@@ -12,7 +12,7 @@ class SkillTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test that the Skill model can be created
+     * Test que el modelo Skill puede crearse
      */
     public function test_skill_can_be_created(): void
     {
@@ -27,7 +27,7 @@ class SkillTest extends TestCase
     }
 
     /**
-     * Test that Skill belongs to User relationship
+     * Test que Skill pertenece a la relación User
      */
     public function test_skill_belongs_to_user(): void
     {
@@ -39,7 +39,7 @@ class SkillTest extends TestCase
     }
 
     /**
-     * Test that Skill has the correct fillable attributes
+     * Test que Skill tiene los atributos fillable correctos
      */
     public function test_skill_has_fillable_attributes(): void
     {
@@ -58,13 +58,13 @@ class SkillTest extends TestCase
     }
 
     /**
-     * Test that Skill has the correct default ordering by sort_order (ascending)
+     * Test que Skill tiene el ordenamiento correcto por sort_order (ascendente)
      */
     public function test_skill_default_ordering(): void
     {
         $user = User::factory()->create();
 
-        // Create skills with different sort_order values
+        // Crear habilidades con diferentes valores de sort_order
         Skill::factory()->create(['user_id' => $user->id, 'name' => 'Skill A', 'category' => 'Category A', 'sort_order' => 5]);
         Skill::factory()->create(['user_id' => $user->id, 'name' => 'Skill B', 'category' => 'Category B', 'sort_order' => 1]);
         Skill::factory()->create(['user_id' => $user->id, 'name' => 'Skill C', 'category' => 'Category C', 'sort_order' => 3]);
@@ -77,7 +77,7 @@ class SkillTest extends TestCase
     }
 
     /**
-     * Test that Skill has the correct category values
+     * Test que Skill tiene valores de categoría válidos
      */
     public function test_skill_category_validation(): void
     {
@@ -89,7 +89,7 @@ class SkillTest extends TestCase
     }
 
     /**
-     * Test factory creates realistic data
+     * Test que el factory crea datos realistas
      */
     public function test_skill_factory_creates_realistic_data(): void
     {

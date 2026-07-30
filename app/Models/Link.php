@@ -10,10 +10,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Model representing a link/user association.
+ * Modelo que representa un enlace o asociación con el usuario.
  *
- * The Link model stores hyperlinks with metadata like label, URL, and ordering
- * for the user's portfolio profile. Each link belongs to a single user.
+ * El modelo Link almacena hipervínculos con metadatos como etiqueta, URL y orden
+ * para el perfil del portafolio del usuario. Cada enlace pertenece a un solo usuario.
  */
 #[Fillable(['user_id', 'label', 'url', 'icon', 'sort_order'])]
 #[Hidden([])]
@@ -22,37 +22,37 @@ class Link extends Model
     use HasFactory;
 
     /**
-     * Get the factory class for the model.
+     * Obtiene la clase factory del modelo.
      */
     protected string $factory = LinkFactory::class;
 
     /**
-     * Get the table associated with the model.
+     * Obtiene la tabla asociada al modelo.
      */
     protected $table = 'links';
 
     /**
-     * Get the primary key for the model.
+     * Obtiene la clave primaria del modelo.
      */
     protected $primaryKey = 'id';
 
     /**
-     * Indicates if the model's ID is auto-incrementing.
+     * Indica si el ID del modelo es autoincremental.
      */
     public $incrementing = true;
 
     /**
-     * The number of models to return for a single query.
+     * Número de modelos a devolver por consulta.
      */
     protected $perPage = 15;
 
     /**
-     * Get the default ordering for the model.
+     * Obtiene el ordenamiento por defecto del modelo.
      */
     protected array $order = ['sort_order' => 'asc'];
 
     /**
-     * Override the base query to apply default ordering.
+     * Sobrescribe la consulta base para aplicar ordenamiento por defecto.
      */
     function newQuery(): \Illuminate\Database\Eloquent\Builder
     {
@@ -60,8 +60,8 @@ class Link extends Model
     }
 
     /**
-     * Define the relationship with User model.
-     * A link belongs to a single user.
+     * Define la relación con el modelo User.
+     * Un enlace pertenece a un solo usuario.
      */
     public function user(): BelongsTo
     {

@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class EducationFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * Contraseña actual utilizada por el factory.
      */
     protected static ?string $password;
 
     /**
-     * Define the model's default state.
+     * Define el estado por defecto del modelo.
      *
      * @return array<string, mixed>
      */
@@ -37,12 +37,12 @@ class EducationFactory extends Factory
     }
 
     /**
-     * Configure the model factory to create Spatie media after model creation.
+     * Configura el factory para crear medios de Spatie después de crear el modelo.
      */
     public function withMedia(): self
     {
         return $this->afterCreating(function (Education $education) {
-            // Create certificates for the education using Spatie Media Library
+            // Crea certificados para la formación usando Spatie Media Library
             $education->addMediaFromString('certificate-data')
                 ->usingFileName('certificate-'.$education->id.'.pdf')
                 ->toMediaCollection('certificates');

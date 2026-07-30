@@ -13,10 +13,10 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
- * Model representing skills/abilities for a user.
+ * Modelo que representa las habilidades de un usuario.
  *
- * The Skill model stores categorized skill entries for the user's portfolio.
- * Each skill belongs to a single user and can have a category and sort order.
+ * El modelo Skill almacena entradas de habilidades categorizadas para el portafolio.
+ * Cada habilidad pertenece a un solo usuario y puede tener una categoría y orden.
  */
 #[Fillable(['user_id', 'name', 'category', 'sort_order'])]
 #[Hidden([])]
@@ -25,32 +25,32 @@ class Skill extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     /**
-     * Get the factory class for the model.
+     * Obtiene la clase factory del modelo.
      */
     protected string $factory = SkillFactory::class;
 
     /**
-     * Get the table associated with the model.
+     * Obtiene la tabla asociada al modelo.
      */
     protected $table = 'skills';
 
     /**
-     * Get the primary key for the model.
+     * Obtiene la clave primaria del modelo.
      */
     protected $primaryKey = 'id';
 
     /**
-     * Indicates if the model's ID is auto-incrementing.
+     * Indica si el ID del modelo es autoincremental.
      */
     public $incrementing = true;
 
     /**
-     * The number of models to return for a single query.
+     * Número de modelos a devolver por consulta.
      */
     protected $perPage = 15;
 
     /**
-     * Override the base query to apply default ordering by sort_order (ascending).
+     * Sobrescribe la consulta base para aplicar ordenamiento por sort_order (ascendente).
      */
     public function newQuery(): \Illuminate\Database\Eloquent\Builder
     {
@@ -58,8 +58,8 @@ class Skill extends Model implements HasMedia
     }
 
     /**
-     * Define the relationship with User model.
-     * A skill belongs to a single user.
+     * Define la relación con el modelo User.
+     * Una habilidad pertenece a un solo usuario.
      */
     public function user(): BelongsTo
     {

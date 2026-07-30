@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ProjectFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * Contraseña actual utilizada por el factory.
      */
     protected static ?string $password;
 
     /**
-     * Define the model's default state.
+     * Define el estado por defecto del modelo.
      *
      * @return array<string, mixed>
      */

@@ -13,11 +13,11 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * Model representing education entries.
+ * Modelo que representa entradas de formación académica.
  *
- * The Education model stores educational background information including
- * institution, degree, field, and employment duration. Each education belongs
- * to a single user and can have associated images.
+ * El modelo Education almacena información educativa incluyendo
+ * institución, título, campo de estudio y duración. Cada formación pertenece
+ * a un solo usuario y puede tener imágenes asociadas.
  */
 #[Fillable(['user_id', 'institution', 'degree', 'field', 'description', 'start_date', 'end_date', 'is_current', 'sort_order'])]
 #[Hidden([])]
@@ -26,32 +26,32 @@ class Education extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     /**
-     * Get the factory class for the model.
+     * Obtiene la clase factory del modelo.
      */
     protected string $factory = EducationFactory::class;
 
     /**
-     * Get the table associated with the model.
+     * Obtiene la tabla asociada al modelo.
      */
     protected $table = 'education';
 
     /**
-     * Get the primary key for the model.
+     * Obtiene la clave primaria del modelo.
      */
     protected $primaryKey = 'id';
 
     /**
-     * Indicates if the model's ID is auto-incrementing.
+     * Indica si el ID del modelo es autoincremental.
      */
     public $incrementing = true;
 
     /**
-     * The number of models to return for a single query.
+     * Número de modelos a devolver por consulta.
      */
     protected $perPage = 15;
 
     /**
-     * Override the base query to apply default ordering by sort_order (ascending).
+     * Sobrescribe la consulta base para aplicar ordenamiento por sort_order (ascendente).
      */
     public function newQuery(): \Illuminate\Database\Eloquent\Builder
     {
@@ -59,8 +59,8 @@ class Education extends Model implements HasMedia
     }
 
     /**
-     * Define the relationship with User model.
-     * An education belongs to a single user.
+     * Define la relación con el modelo User.
+     * Una formación pertenece a un solo usuario.
      */
     public function user(): BelongsTo
     {
@@ -68,8 +68,8 @@ class Education extends Model implements HasMedia
     }
 
     /**
-     * Define the relationship with Image model.
-     * An education can have many images through polymorphic relationship.
+     * Define la relación con el modelo Image.
+     * Una formación puede tener múltiples imágenes mediante relación polimórfica.
      */
     public function images(): MorphMany
     {
@@ -77,8 +77,8 @@ class Education extends Model implements HasMedia
     }
 
     /**
-     * Register media collections for Spatie Media Library.
-     * Define 'certificates' collection for storing educational certificates.
+     * Registra las colecciones de medios para Spatie Media Library.
+     * Define la colección 'certificates' para almacenar certificados educativos.
      */
     public function registerMediaCollections(): void
     {

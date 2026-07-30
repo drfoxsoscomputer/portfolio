@@ -13,11 +13,11 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
- * Model representing a project/work experience entry.
+ * Modelo que representa un proyecto o entrada de experiencia laboral.
  *
- * The Project model stores professional project information including
- * technology stack, team details, and timeline. Each project belongs
- * to a single user and can have associated images.
+ * El modelo Project almacena información profesional del proyecto incluyendo
+ * stack tecnológico, detalles del equipo y cronología. Cada proyecto pertenece
+ * a un solo usuario y puede tener imágenes asociadas.
  */
 #[Fillable(['user_id', 'name', 'description', 'tech_stack', 'role', 'team_size', 'url', 'repo_url', 'start_date', 'end_date', 'is_current', 'is_featured'])]
 #[Hidden([])]
@@ -26,32 +26,32 @@ class Project extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     /**
-     * Get the factory class for the model.
+     * Obtiene la clase factory del modelo.
      */
     protected string $factory = ProjectFactory::class;
 
     /**
-     * Get the table associated with the model.
+     * Obtiene la tabla asociada al modelo.
      */
     protected $table = 'projects';
 
     /**
-     * Get the primary key for the model.
+     * Obtiene la clave primaria del modelo.
      */
     protected $primaryKey = 'id';
 
     /**
-     * Indicates if the model's ID is auto-incrementing.
+     * Indica si el ID del modelo es autoincremental.
      */
     public $incrementing = true;
 
     /**
-     * The number of models to return for a single query.
+     * Número de modelos a devolver por consulta.
      */
     protected $perPage = 15;
 
     /**
-     * Get the attributes that should be cast.
+     * Obtiene los atributos que deben convertirse.
      */
     protected function casts(): array
     {
@@ -66,7 +66,7 @@ class Project extends Model implements HasMedia
     }
 
     /**
-     * Override the base query to apply default ordering by start_date (descending).
+     * Sobrescribe la consulta base para aplicar ordenamiento por start_date (descendente).
      */
     public function newQuery(): \Illuminate\Database\Eloquent\Builder
     {
@@ -74,8 +74,8 @@ class Project extends Model implements HasMedia
     }
 
     /**
-     * Define the relationship with User model.
-     * A project belongs to a single user.
+     * Define la relación con el modelo User.
+     * Un proyecto pertenece a un solo usuario.
      */
     public function user(): BelongsTo
     {
@@ -83,8 +83,8 @@ class Project extends Model implements HasMedia
     }
 
     /**
-     * Define the relationship with Image model.
-     * A project can have many images through polymorphic relationship.
+     * Define la relación con el modelo Image.
+     * Un proyecto puede tener múltiples imágenes mediante relación polimórfica.
      */
     public function images(): MorphMany
     {

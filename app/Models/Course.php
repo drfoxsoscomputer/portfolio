@@ -10,6 +10,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
+/**
+ * Modelo que representa un curso o certificación.
+ *
+ * El modelo Course almacena información de cursos y certificaciones
+ * del portafolio del usuario. Cada curso pertenece a un solo usuario.
+ */
 class Course extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;

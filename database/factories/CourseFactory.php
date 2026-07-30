@@ -6,6 +6,9 @@ use App\Models\Course;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * Factory para el modelo Course.
+ */
 class CourseFactory extends Factory
 {
     protected $model = Course::class;
