@@ -58,9 +58,8 @@ class SkillResource extends Resource
                 SpatieMediaLibraryFileUpload::make('icons')
                     ->label('Iconos')
                     ->collection('icons')
-                    ->singleFile(),
+                    ->maxFiles(1),
             ]);
-        });
     }
 
     public static function table(Table $table): Table

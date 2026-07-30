@@ -167,18 +167,7 @@ class ProfileSeeder extends Seeder
             'sort_order' => 1,
         ]);
         
-        // Add certificate media for education
-        $education->addMediaFromString('certificate-data-1')
-            ->usingFileName('certificate-1.jpg')
-            ->toMediaCollection('certificates');
-        
-        $education->addMediaFromString('certificate-data-2')
-            ->usingFileName('certificate-2.pdf')
-            ->toMediaCollection('certificates');
-        
-        $education->addMediaFromString('certificate-data-3')
-            ->usingFileName('certificate-3.png')
-            ->toMediaCollection('certificates');
+        // Note: certificates media se agregan manualmente desde el admin de Filament
 
         Education::create([
             'user_id' => $user->id,

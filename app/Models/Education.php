@@ -84,7 +84,6 @@ class Education extends Model implements HasMedia
     {
         $this->addMediaCollection('certificates')
             ->useDisk('public')
-            ->maxFiles(5)
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'application/pdf'])
             ->hasResponsiveImages();
     }

@@ -24,12 +24,12 @@ Chain strategy: feature-branch-chain
 
 ## PR #7: Spatie Admin Uploads + Education Collection
 
-- [ ] 7.1 Agregar `registerMediaCollections()` a `Education.php` para colección 'certificates' (multi, 5 max, jpeg/png/pdf)
-- [ ] 7.2 Agregar `SpatieMediaLibraryFileUpload` a `SkillResource` para colección 'icons' (singleFile)
-- [ ] 7.3 Agregar `SpatieMediaLibraryFileUpload` a `LanguageResource` para colección 'flags' (singleFile)
-- [ ] 7.4 Agregar `SpatieMediaLibraryFileUpload` a `ExperienceResource` para colección 'logos' (singleFile)
-- [ ] 7.5 Actualizar `SkillFactory`, `LanguageFactory`, `ExperienceFactory` para media Spatie
-- [ ] 7.6 Actualizar `ProfileSeeder` para generar media de prueba con Spatie
+- [x] 7.1 Agregar `registerMediaCollections()` a `Education.php` para colección 'certificates' (multi, 5 max, jpeg/png/pdf)
+- [x] 7.2 Agregar `SpatieMediaLibraryFileUpload` a `SkillResource` para colección 'icons' (maxFiles:1)
+- [x] 7.3 Agregar `SpatieMediaLibraryFileUpload` a `LanguageResource` para colección 'flags' (maxFiles:1)
+- [x] 7.4 Agregar `SpatieMediaLibraryFileUpload` a `ExperienceResource` para colección 'logos' (maxFiles:1)
+- [x] 7.5 Actualizar `SkillFactory`, `LanguageFactory`, `ExperienceFactory` para media Spatie
+- [x] 7.6 Actualizar `ProfileSeeder` para generar media de prueba con Spatie
 - [ ] 7.7 Tests: validación SpatieMediaLibraryFileUpload (tipos, max files)
 - [ ] 7.8 Tests: factory/seeders generan media correctamente
 

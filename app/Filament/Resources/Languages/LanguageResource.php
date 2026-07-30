@@ -57,9 +57,8 @@ class LanguageResource extends Resource
                 SpatieMediaLibraryFileUpload::make('flags')
                     ->label('Banderas')
                     ->collection('flags')
-                    ->singleFile(),
+                    ->maxFiles(1),
             ]);
-        });
     }
 
     public static function table(Table $table): Table

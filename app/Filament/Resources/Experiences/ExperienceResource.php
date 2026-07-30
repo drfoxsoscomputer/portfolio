@@ -65,7 +65,7 @@ class ExperienceResource extends Resource
                 SpatieMediaLibraryFileUpload::make('logos')
                     ->label('Logos')
                     ->collection('logos')
-                    ->singleFile(),
+                    ->maxFiles(1),
             ]);
     }
 
