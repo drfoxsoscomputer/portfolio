@@ -8,19 +8,22 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
- * Model representing language proficiency for a profile.
+ * Model representing language proficiency for a user.
  *
  * The Language model stores language skills for the user's portfolio.
- * Each language belongs to a single profile and can have a proficiency level
+ * Each language belongs to a single user and can have a proficiency level
  * and sort order.
  */
-#[Fillable(['profile_id', 'name', 'level', 'sort_order'])]
+#[Fillable(['user_id', 'name', 'level', 'sort_order'])]
 #[Hidden([])]
-class Language extends Model
+class Language extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     /**
      * Get the factory class for the model.
@@ -56,11 +59,22 @@ class Language extends Model
     }
 
     /**
-     * Define the relationship with Profile model.
-     * A language belongs to a single profile.
+     * Define the relationship with User model.
+     * A language belongs to a single user.
      */
-    public function profile(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('flags')
+            ->singleFile()
+            ->registerMediaConversions(function (Media $media) {
+                $this->addMediaConversion('thumb')
+                    ->width(50)
+                    ->height(50);
+            });
     }
 }

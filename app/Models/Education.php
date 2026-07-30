@@ -9,19 +9,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * Model representing education entries.
  *
  * The Education model stores educational background information including
  * institution, degree, field, and employment duration. Each education belongs
- * to a single profile and can have associated images.
+ * to a single user and can have associated images.
  */
-#[Fillable(['profile_id', 'institution', 'degree', 'field', 'description', 'start_date', 'end_date', 'is_current', 'sort_order'])]
+#[Fillable(['user_id', 'institution', 'degree', 'field', 'description', 'start_date', 'end_date', 'is_current', 'sort_order'])]
 #[Hidden([])]
-class Education extends Model
+class Education extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     /**
      * Get the factory class for the model.
@@ -57,12 +59,12 @@ class Education extends Model
     }
 
     /**
-     * Define the relationship with Profile model.
-     * An education belongs to a single profile.
+     * Define the relationship with User model.
+     * An education belongs to a single user.
      */
-    public function profile(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -72,5 +74,17 @@ class Education extends Model
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    /**
+     * Register media collections for Spatie Media Library.
+     * Define 'certificates' collection for storing educational certificates.
+     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('certificates')
+            ->useDisk('public')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'application/pdf'])
+            ->hasResponsiveImages();
     }
 }

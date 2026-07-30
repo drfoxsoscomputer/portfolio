@@ -20,6 +20,8 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/storage/media-library/
+/.atl/.skill-registry.cache.json
 /vendor
 _ide_helper.php
 Homestead.json

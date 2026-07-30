@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Education;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class EducationFactory extends Factory
     public function definition(): array
     {
         return [
-            'profile_id' => 1, // Will be overridden in tests
+            'user_id' => User::factory(),
             'institution' => $this->faker->company(),
             'degree' => $this->faker->randomElement(['Bachelor', 'Master', 'PhD', 'Associate', 'Certificate', 'Diploma']),
             'field' => $this->faker->optional()->word(),
@@ -33,5 +34,18 @@ class EducationFactory extends Factory
             'is_current' => $this->faker->boolean(15),
             'sort_order' => $this->faker->numberBetween(0, 10),
         ];
+    }
+
+    /**
+     * Configure the model factory to create Spatie media after model creation.
+     */
+    public function withMedia(): self
+    {
+        return $this->afterCreating(function (Education $education) {
+            // Create certificates for the education using Spatie Media Library
+            $education->addMediaFromString('certificate-data')
+                ->usingFileName('certificate-'.$education->id.'.pdf')
+                ->toMediaCollection('certificates');
+        });
     }
 }

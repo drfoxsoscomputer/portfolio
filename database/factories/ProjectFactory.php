@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'profile_id' => 1, // Will be overridden in tests
+            'user_id' => User::factory(),
             'name' => $this->faker->company(),
             'description' => $this->faker->text(200),
             'tech_stack' => $this->faker->randomElements(['PHP', 'Laravel', 'Vue', 'React', 'MySQL', 'Git', 'Docker', 'AWS'], $this->faker->numberBetween(2, 5)),

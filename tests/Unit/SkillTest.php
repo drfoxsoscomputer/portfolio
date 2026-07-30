@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Skill;
-use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,26 +16,26 @@ class SkillTest extends TestCase
      */
     public function test_skill_can_be_created(): void
     {
-        $profile = Profile::factory()->create();
-        $skill = Skill::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $skill = Skill::factory()->create(['user_id' => $user->id]);
 
         $this->assertModelExists($skill);
         $this->assertInstanceOf(Skill::class, $skill);
-        $this->assertEquals($profile->id, $skill->profile_id);
+        $this->assertEquals($user->id, $skill->user_id);
         $this->assertNotEmpty($skill->name);
         $this->assertNotEmpty($skill->category);
     }
 
     /**
-     * Test that Skill belongs to Profile relationship
+     * Test that Skill belongs to User relationship
      */
-    public function test_skill_belongs_to_profile(): void
+    public function test_skill_belongs_to_user(): void
     {
-        $profile = Profile::factory()->create();
-        $skill = Skill::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $skill = Skill::factory()->create(['user_id' => $user->id]);
 
-        $this->assertInstanceOf(Profile::class, $skill->profile);
-        $this->assertEquals($profile->id, $skill->profile->id);
+        $this->assertInstanceOf(User::class, $skill->user);
+        $this->assertEquals($user->id, $skill->user->id);
     }
 
     /**
@@ -43,8 +43,8 @@ class SkillTest extends TestCase
      */
     public function test_skill_has_fillable_attributes(): void
     {
-        $profile = Profile::factory()->create();
-        $skill = Skill::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $skill = Skill::factory()->create(['user_id' => $user->id]);
 
         $skill->update([
             'name' => 'Test Skill',
@@ -62,12 +62,12 @@ class SkillTest extends TestCase
      */
     public function test_skill_default_ordering(): void
     {
-        $profile = Profile::factory()->create();
+        $user = User::factory()->create();
 
         // Create skills with different sort_order values
-        Skill::factory()->create(['profile_id' => $profile->id, 'name' => 'Skill A', 'category' => 'Category A', 'sort_order' => 5]);
-        Skill::factory()->create(['profile_id' => $profile->id, 'name' => 'Skill B', 'category' => 'Category B', 'sort_order' => 1]);
-        Skill::factory()->create(['profile_id' => $profile->id, 'name' => 'Skill C', 'category' => 'Category C', 'sort_order' => 3]);
+        Skill::factory()->create(['user_id' => $user->id, 'name' => 'Skill A', 'category' => 'Category A', 'sort_order' => 5]);
+        Skill::factory()->create(['user_id' => $user->id, 'name' => 'Skill B', 'category' => 'Category B', 'sort_order' => 1]);
+        Skill::factory()->create(['user_id' => $user->id, 'name' => 'Skill C', 'category' => 'Category C', 'sort_order' => 3]);
 
         $skills = Skill::all();
 
@@ -81,8 +81,8 @@ class SkillTest extends TestCase
      */
     public function test_skill_category_validation(): void
     {
-        $profile = Profile::factory()->create();
-        $skill = Skill::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $skill = Skill::factory()->create(['user_id' => $user->id]);
 
         $validCategories = ['Lenguajes', 'Frameworks', 'DB', 'Tools', 'Metodologías'];
         $this->assertContains($skill->category, $validCategories);
@@ -93,8 +93,8 @@ class SkillTest extends TestCase
      */
     public function test_skill_factory_creates_realistic_data(): void
     {
-        $profile = Profile::factory()->create();
-        $skill = Skill::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $skill = Skill::factory()->create(['user_id' => $user->id]);
 
         $this->assertNotEmpty($skill->name);
         $this->assertNotEmpty($skill->category);

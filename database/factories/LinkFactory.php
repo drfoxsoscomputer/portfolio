@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Link;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,10 +24,16 @@ class LinkFactory extends Factory
     public function definition(): array
     {
         return [
-            'profile_id' => 1, // Will be replaced with actual profile ID
+            'user_id' => User::factory(),
             'label' => $this->faker->text(30),
             'url' => $this->faker->url(),
-            'icon' => $this->faker->optional()->imageUrl(),
+            'icon' => fake()->randomElement([
+                'github',
+                'linkedin',
+                'x',
+                'instagram',
+                'youtube',
+            ]),
             'sort_order' => $this->faker->numberBetween(0, 10),
         ];
     }

@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Language;
-use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,27 +16,27 @@ class LanguageTest extends TestCase
      */
     public function test_language_can_be_created(): void
     {
-        $profile = Profile::factory()->create();
-        $language = Language::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $language = Language::factory()->create(['user_id' => $user->id]);
 
         $this->assertModelExists($language);
         $this->assertInstanceOf(Language::class, $language);
-        $this->assertEquals($profile->id, $language->profile_id);
+        $this->assertEquals($user->id, $language->user_id);
         $this->assertNotEmpty($language->name);
         $this->assertNotEmpty($language->level);
         $this->assertIsInt($language->sort_order);
     }
 
     /**
-     * Test that Language belongs to Profile relationship
+     * Test that Language belongs to User relationship
      */
-    public function test_language_belongs_to_profile(): void
+    public function test_language_belongs_to_user(): void
     {
-        $profile = Profile::factory()->create();
-        $language = Language::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $language = Language::factory()->create(['user_id' => $user->id]);
 
-        $this->assertInstanceOf(Profile::class, $language->profile);
-        $this->assertEquals($profile->id, $language->profile->id);
+        $this->assertInstanceOf(User::class, $language->user);
+        $this->assertEquals($user->id, $language->user->id);
     }
 
     /**
@@ -44,8 +44,8 @@ class LanguageTest extends TestCase
      */
     public function test_language_has_fillable_attributes(): void
     {
-        $profile = Profile::factory()->create();
-        $language = Language::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $language = Language::factory()->create(['user_id' => $user->id]);
 
         $language->update([
             'name' => 'Test Language',
@@ -63,12 +63,12 @@ class LanguageTest extends TestCase
      */
     public function test_language_default_ordering(): void
     {
-        $profile = Profile::factory()->create();
+        $user = User::factory()->create();
 
         // Create languages with different sort_order values
-        Language::factory()->create(['profile_id' => $profile->id, 'name' => 'Language A', 'sort_order' => 5]);
-        Language::factory()->create(['profile_id' => $profile->id, 'name' => 'Language B', 'sort_order' => 1]);
-        Language::factory()->create(['profile_id' => $profile->id, 'name' => 'Language C', 'sort_order' => 3]);
+        Language::factory()->create(['user_id' => $user->id, 'name' => 'Language A', 'sort_order' => 5]);
+        Language::factory()->create(['user_id' => $user->id, 'name' => 'Language B', 'sort_order' => 1]);
+        Language::factory()->create(['user_id' => $user->id, 'name' => 'Language C', 'sort_order' => 3]);
 
         $languages = Language::all();
 
@@ -82,8 +82,8 @@ class LanguageTest extends TestCase
      */
     public function test_language_level_validation(): void
     {
-        $profile = Profile::factory()->create();
-        $language = Language::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $language = Language::factory()->create(['user_id' => $user->id]);
 
         $validLevels = ['Beginner', 'Intermediate', 'Advanced', 'Fluent', 'Native'];
         $this->assertContains($language->level, $validLevels);
@@ -94,8 +94,8 @@ class LanguageTest extends TestCase
      */
     public function test_language_factory_creates_realistic_data(): void
     {
-        $profile = Profile::factory()->create();
-        $language = Language::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $language = Language::factory()->create(['user_id' => $user->id]);
 
         $this->assertNotEmpty($language->name);
         $this->assertNotEmpty($language->level);

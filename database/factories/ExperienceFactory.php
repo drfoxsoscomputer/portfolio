@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Experience;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class ExperienceFactory extends Factory
     public function definition(): array
     {
         return [
-            'profile_id' => 1, // Will be overridden in tests
+            'user_id' => User::factory(),
             'company' => $this->faker->company(),
             'role' => $this->faker->jobTitle(),
             'description' => $this->faker->optional()->text(200),
@@ -32,5 +33,18 @@ class ExperienceFactory extends Factory
             'end_date' => $this->faker->optional()->dateTimeBetween('-10 years', 'now'),
             'is_current' => $this->faker->boolean(20),
         ];
+    }
+
+    /**
+     * Configure the model factory to create Spatie media after model creation.
+     */
+    public function withMedia(): self
+    {
+        return $this->afterCreating(function (Experience $experience) {
+            // Create a logo for the experience using Spatie Media Library
+            $experience->addMediaFromString('logo-data')
+                ->usingFileName('logo-'.$experience->id.'.webp')
+                ->toMediaCollection('logos');
+        });
     }
 }

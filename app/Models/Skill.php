@@ -8,18 +8,21 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
- * Model representing skills/abilities for a profile.
+ * Model representing skills/abilities for a user.
  *
  * The Skill model stores categorized skill entries for the user's portfolio.
- * Each skill belongs to a single profile and can have a category and sort order.
+ * Each skill belongs to a single user and can have a category and sort order.
  */
-#[Fillable(['profile_id', 'name', 'category', 'sort_order'])]
+#[Fillable(['user_id', 'name', 'category', 'sort_order'])]
 #[Hidden([])]
-class Skill extends Model
+class Skill extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     /**
      * Get the factory class for the model.
@@ -55,11 +58,22 @@ class Skill extends Model
     }
 
     /**
-     * Define the relationship with Profile model.
-     * A skill belongs to a single profile.
+     * Define the relationship with User model.
+     * A skill belongs to a single user.
      */
-    public function profile(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('icons')
+            ->singleFile()
+            ->registerMediaConversions(function (Media $media) {
+                $this->addMediaConversion('thumb')
+                    ->width(50)
+                    ->height(50);
+            });
     }
 }

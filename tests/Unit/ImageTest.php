@@ -4,8 +4,8 @@ namespace Tests\Unit;
 
 use App\Models\Education;
 use App\Models\Image;
-use App\Models\Profile;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,10 +15,10 @@ class ImageTest extends TestCase
 
     public function test_image_can_be_created(): void
     {
-        $profile = Profile::factory()->create();
+        $user = User::factory()->create();
         $image = Image::factory()->create([
-            'imageable_id' => $profile->id,
-            'imageable_type' => $profile->getMorphClass(),
+            'imageable_id' => $user->id,
+            'imageable_type' => $user->getMorphClass(),
         ]);
 
         $this->assertModelExists($image);
@@ -29,17 +29,17 @@ class ImageTest extends TestCase
 
     public function test_image_has_morph_to_relationship(): void
     {
-        $profile = Profile::factory()->create();
-        $project = Project::factory()->create(['profile_id' => $profile->id]);
-        $education = Education::factory()->create(['profile_id' => $profile->id]);
+        $user = User::factory()->create();
+        $project = Project::factory()->create(['user_id' => $user->id]);
+        $education = Education::factory()->create(['user_id' => $user->id]);
 
-        // Attach to Profile
-        $profileImage = Image::factory()->create([
-            'imageable_id' => $profile->id,
-            'imageable_type' => $profile->getMorphClass(),
+        // Attach to User
+        $userImage = Image::factory()->create([
+            'imageable_id' => $user->id,
+            'imageable_type' => $user->getMorphClass(),
         ]);
-        $this->assertInstanceOf(Profile::class, $profileImage->imageable);
-        $this->assertEquals($profile->id, $profileImage->imageable->id);
+        $this->assertInstanceOf(User::class, $userImage->imageable);
+        $this->assertEquals($user->id, $userImage->imageable->id);
 
         // Attach to Project
         $projectImage = Image::factory()->create([
@@ -60,10 +60,10 @@ class ImageTest extends TestCase
 
     public function test_image_has_fillable_attributes(): void
     {
-        $profile = Profile::factory()->create();
+        $user = User::factory()->create();
         $image = Image::factory()->create([
-            'imageable_id' => $profile->id,
-            'imageable_type' => $profile->getMorphClass(),
+            'imageable_id' => $user->id,
+            'imageable_type' => $user->getMorphClass(),
         ]);
 
         $image->update([
@@ -81,12 +81,12 @@ class ImageTest extends TestCase
 
     public function test_image_default_ordering(): void
     {
-        $profile = Profile::factory()->create();
-        $morph = $profile->getMorphClass();
+        $user = User::factory()->create();
+        $morph = $user->getMorphClass();
 
-        Image::factory()->create(['imageable_id' => $profile->id, 'imageable_type' => $morph, 'type' => 'avatar', 'sort_order' => 5]);
-        Image::factory()->create(['imageable_id' => $profile->id, 'imageable_type' => $morph, 'type' => 'screenshot', 'sort_order' => 1]);
-        Image::factory()->create(['imageable_id' => $profile->id, 'imageable_type' => $morph, 'type' => 'logo', 'sort_order' => 3]);
+        Image::factory()->create(['imageable_id' => $user->id, 'imageable_type' => $morph, 'type' => 'avatar', 'sort_order' => 5]);
+        Image::factory()->create(['imageable_id' => $user->id, 'imageable_type' => $morph, 'type' => 'screenshot', 'sort_order' => 1]);
+        Image::factory()->create(['imageable_id' => $user->id, 'imageable_type' => $morph, 'type' => 'logo', 'sort_order' => 3]);
 
         $images = Image::all();
 
@@ -97,10 +97,10 @@ class ImageTest extends TestCase
 
     public function test_image_type_validation(): void
     {
-        $profile = Profile::factory()->create();
+        $user = User::factory()->create();
         $image = Image::factory()->create([
-            'imageable_id' => $profile->id,
-            'imageable_type' => $profile->getMorphClass(),
+            'imageable_id' => $user->id,
+            'imageable_type' => $user->getMorphClass(),
         ]);
 
         $validTypes = ['avatar', 'screenshot', 'logo', 'certificate'];
@@ -109,10 +109,10 @@ class ImageTest extends TestCase
 
     public function test_image_factory_creates_realistic_data(): void
     {
-        $profile = Profile::factory()->create();
+        $user = User::factory()->create();
         $image = Image::factory()->create([
-            'imageable_id' => $profile->id,
-            'imageable_type' => $profile->getMorphClass(),
+            'imageable_id' => $user->id,
+            'imageable_type' => $user->getMorphClass(),
         ]);
 
         $this->assertNotEmpty($image->url);

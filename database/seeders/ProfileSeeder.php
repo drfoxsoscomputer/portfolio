@@ -6,10 +6,12 @@ use App\Models\Education;
 use App\Models\Experience;
 use App\Models\Language;
 use App\Models\Link;
-use App\Models\Profile;
 use App\Models\Project;
+use App\Models\Course;
 use App\Models\Skill;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileSeeder extends Seeder
 {
@@ -18,19 +20,20 @@ class ProfileSeeder extends Seeder
      */
     public function run(): void
     {
-        $profile = Profile::create([
+        $user = User::create([
             'name' => 'Denis Piña',
+            'email' => 'daprthefox@gmail.com',
+            'password' => Hash::make('asdf1234'),
             'title' => 'Desarrollador Full Stack',
             'location' => 'Venezuela, Lara',
             'phone' => '+58 414-516-9484',
-            'email' => 'daprthefox@gmail.com',
             'summary' => 'Desarrollador con experiencia en múltiples tecnologías y frameworks, especializado en la creación de aplicaciones web escalables y eficientes. Apasionado por la resolución de problemas y el aprendizaje constante.',
             'avatar' => null,
         ]);
 
         // Create Links
         Link::create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'label' => 'LinkedIn',
             'url' => 'https://linkedin.com/in/denis-drfox-dev',
             'icon' => 'linkedin',
@@ -38,7 +41,7 @@ class ProfileSeeder extends Seeder
         ]);
 
         Link::create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'label' => 'GitHub',
             'url' => 'https://github.com/drfoxsoscomputer',
             'icon' => 'github',
@@ -46,7 +49,7 @@ class ProfileSeeder extends Seeder
         ]);
 
         Link::create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'label' => 'Portfolio',
             'url' => 'https://drfoxsoscomputer.github.io',
             'icon' => 'globe',
@@ -55,7 +58,7 @@ class ProfileSeeder extends Seeder
 
         // Create Projects with real data from CV
         Project::create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'name' => 'GameWorld Ecommerce',
             'description' => 'Plataforma completa de comercio electrónico con carrito de compras, procesador de pagos y panel de administración',
             'tech_stack' => ['PHP', 'Laravel', 'MySQL', 'Vue.js', 'Bootstrap'],
@@ -70,7 +73,7 @@ class ProfileSeeder extends Seeder
         ]);
 
         Project::create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'name' => 'Pokedex App',
             'description' => 'Aplicación web para visualizar y buscar Pokémon con API integrada a PokéAPI',
             'tech_stack' => ['React', 'Redux', 'Node.js', 'Express', 'PostgreSQL'],
@@ -85,7 +88,7 @@ class ProfileSeeder extends Seeder
         ]);
 
         Project::create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'name' => 'Rick and Morty App',
             'description' => 'Aplicación web interactiva con temática de Rick and Morty, utilizando API pública para datos de personajes',
             'tech_stack' => ['Vue.js', 'Vite', 'JavaScript', 'CSS3', 'HTML5'],
@@ -101,7 +104,7 @@ class ProfileSeeder extends Seeder
 
         // Create Experiences
         Experience::create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'company' => 'Soporte Técnico IT',
             'role' => 'Soporte Técnico',
             'description' => 'Soporte técnico de software y hardware, resolución de incidentes, capacitación de usuarios',
@@ -112,7 +115,7 @@ class ProfileSeeder extends Seeder
         ]);
 
         Experience::create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'company' => 'Balanzas América / CALA',
             'role' => 'Analista de Sistemas',
             'description' => 'Desarrollo de sistemas, mantenimiento de aplicaciones, optimización de procesos, análisis de datos',
@@ -148,12 +151,12 @@ class ProfileSeeder extends Seeder
         ];
 
         foreach ($skills as $skillData) {
-            Skill::create(array_merge(['profile_id' => $profile->id], $skillData));
+            Skill::create(array_merge(['user_id' => $user->id], $skillData));
         }
 
-        // Create Education
-        Education::create([
-            'profile_id' => $profile->id,
+        // Create Education with Spatie media
+        $education = Education::create([
+            'user_id' => $user->id,
             'institution' => 'IU "Andrés Eloy Blanco"',
             'degree' => 'TSU',
             'field' => 'Informática',
@@ -163,9 +166,11 @@ class ProfileSeeder extends Seeder
             'is_current' => false,
             'sort_order' => 1,
         ]);
+        
+        // Note: certificates media se agregan manualmente desde el admin de Filament
 
         Education::create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'institution' => 'Henry Bootcamp',
             'degree' => 'Full Stack Developer',
             'field' => 'Programación',
@@ -178,16 +183,35 @@ class ProfileSeeder extends Seeder
 
         // Create Languages
         Language::create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'name' => 'Español',
             'level' => 'Nativo',
             'sort_order' => 1,
         ]);
 
         Language::create([
-            'profile_id' => $profile->id,
+            'user_id' => $user->id,
             'name' => 'Inglés',
             'level' => 'Básico',
+            'sort_order' => 2,
+        ]);
+
+        // Create Courses
+        Course::create([
+            'user_id' => $user->id,
+            'name' => 'Técnicas Avanzadas de Laravel',
+            'institution' => 'Laracasts',
+            'date' => '2024-06-15',
+            'description' => 'Curso avanzado sobre Laravel: queues, broadcasting, testing, y optimización.',
+            'sort_order' => 1,
+        ]);
+
+        Course::create([
+            'user_id' => $user->id,
+            'name' => 'Desarrollo Full Stack con React y Node.js',
+            'institution' => 'Platzi',
+            'date' => '2023-11-20',
+            'description' => 'Programa completo de desarrollo full stack cubriendo React, Node.js, Express y PostgreSQL.',
             'sort_order' => 2,
         ]);
     }

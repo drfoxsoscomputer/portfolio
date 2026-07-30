@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * Model representing an image that can be attached to multiple entity types.
  *
  * The Image model uses polymorphic relationships to allow images to be attached
- * to Profile, Project, and Education entities. This enables flexible media
+ * to User, Project, and Education entities. This enables flexible media
  * management across different CV content types (avatars, screenshots, logos, certificates).
  */
 #[Fillable(['url', 'alt_text', 'type', 'sort_order'])]
@@ -57,7 +57,7 @@ class Image extends Model
 
     /**
      * Define the polymorphic relationship to attach the image to any entity.
-     * The imageable type can be Profile, Project, or Education based on the morph map.
+     * The imageable type can be User, Project, or Education based on the morph map.
      */
     public function imageable(): MorphTo
     {

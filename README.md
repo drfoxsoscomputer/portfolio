@@ -7,7 +7,7 @@ Portfolio personal construido con **Laravel 13**. Incluye panel de administraci�
 - **Framework**: Laravel 13.22.0
 - **PHP**: 8.3+
 - **Base de datos**: SQLite (desarrollo/testing)
-- **Testing**: PHPUnit 12 (48 tests)
+- **Testing**: PHPUnit 12 (68 tests)
 - **Admin Panel**: Filament v5 (español)
 - **Frontend**: Vite (listo para Tailwind/Livewire)
 
@@ -28,10 +28,7 @@ php artisan migrate --seed
 | Grupo | Recursos |
 |-------|----------|
 | Dashboard | Estadísticas del portafolio |
-| Perfil | Edición del perfil (singleton) |
-| Portafolio | Proyectos, Experiencia |
-| Habilidades | Skills, Educación, Idiomas |
-| Enlaces | Links |
+| Perfil | Edición del perfil · Enlaces de Contacto · Habilidades · Idiomas |
 
 ## Modelo de Datos
 
@@ -62,7 +59,7 @@ Education → morphMany → Image
 
 ```bash
 php artisan migrate --seed
-php artisan test        # 48 tests, todos verdes
+php artisan test        # 68 tests, todos verdes
 php artisan serve       # Servidor de desarrollo en localhost:8000
 ```
 
@@ -76,7 +73,7 @@ Este proyecto usa SDD. Los artifacts están en `openspec/`:
 openspec/
 ├── changes/
 │   ├── archive/2026-07-26-cv-models/      ← CV models (archivado)
-│   └── admin-panel/                        ← Admin panel (en progreso)
+│   └── admin-panel/                        ← Admin panel (PR #3 en progreso)
 │       ├── proposal.md
 │       ├── design.md
 │       ├── tasks.md
