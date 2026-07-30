@@ -30,4 +30,17 @@ class LanguageFactory extends Factory
             'sort_order' => $this->faker->numberBetween(0, 10),
         ];
     }
+
+    /**
+     * Configure the model factory to create Spatie media after model creation.
+     */
+    public function withMedia(): self
+    {
+        return $this->afterCreating(function (Language $language) {
+            // Create a flag icon for the language using Spatie Media Library
+            $language->addMediaFromString('flag-data')
+                ->usingFileName('flag-'.$language->id.'.webp')
+                ->toMediaCollection('flags');
+        });
+    }
 }

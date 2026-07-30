@@ -5,6 +5,7 @@ namespace App\Filament\Pages\Auth;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Auth\Pages\EditProfile as BaseEditProfile;
 use Filament\Schemas\Schema;
 
@@ -40,6 +41,13 @@ class EditProfile extends BaseEditProfile
                             ->label('Teléfono')
                             ->tel()
                             ->maxLength(20),
+                        SpatieMediaLibraryFileUpload::make('avatar')
+                            ->label('Foto de perfil')
+                            ->collection('avatar')
+                            ->avatar()
+                            ->imageEditor()
+                            ->imageCropAspectRatio('1:1')
+                            ->circleCropper(),
                     ]),
             ]);
     }

@@ -16,6 +16,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
@@ -78,6 +79,13 @@ class ProjectResource extends Resource
                 Toggle::make('is_featured')
                     ->label('Destacado')
                     ->default(false),
+                SpatieMediaLibraryFileUpload::make('screenshots')
+                    ->label('Capturas')
+                    ->collection('screenshots')
+                    ->multiple()
+                    ->imageEditor()
+                    ->reorderable()
+                    ->maxFiles(20),
             ]);
     }
 

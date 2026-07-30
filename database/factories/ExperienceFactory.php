@@ -34,4 +34,17 @@ class ExperienceFactory extends Factory
             'is_current' => $this->faker->boolean(20),
         ];
     }
+
+    /**
+     * Configure the model factory to create Spatie media after model creation.
+     */
+    public function withMedia(): self
+    {
+        return $this->afterCreating(function (Experience $experience) {
+            // Create a logo for the experience using Spatie Media Library
+            $experience->addMediaFromString('logo-data')
+                ->usingFileName('logo-'.$experience->id.'.webp')
+                ->toMediaCollection('logos');
+        });
+    }
 }

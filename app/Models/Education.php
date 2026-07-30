@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * Model representing education entries.
@@ -19,9 +21,9 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  */
 #[Fillable(['user_id', 'institution', 'degree', 'field', 'description', 'start_date', 'end_date', 'is_current', 'sort_order'])]
 #[Hidden([])]
-class Education extends Model
+class Education extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     /**
      * Get the factory class for the model.
@@ -72,5 +74,17 @@ class Education extends Model
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    /**
+     * Register media collections for Spatie Media Library.
+     * Define 'certificates' collection for storing educational certificates.
+     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('certificates')
+            ->useDisk('public')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'application/pdf'])
+            ->hasResponsiveImages();
     }
 }

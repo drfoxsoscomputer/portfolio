@@ -35,4 +35,17 @@ class EducationFactory extends Factory
             'sort_order' => $this->faker->numberBetween(0, 10),
         ];
     }
+
+    /**
+     * Configure the model factory to create Spatie media after model creation.
+     */
+    public function withMedia(): self
+    {
+        return $this->afterCreating(function (Education $education) {
+            // Create certificates for the education using Spatie Media Library
+            $education->addMediaFromString('certificate-data')
+                ->usingFileName('certificate-'.$education->id.'.pdf')
+                ->toMediaCollection('certificates');
+        });
+    }
 }

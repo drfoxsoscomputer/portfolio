@@ -10,6 +10,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -61,6 +62,10 @@ class ExperienceResource extends Resource
                 Toggle::make('is_current')
                     ->label('Experiencia actual')
                     ->default(false),
+                SpatieMediaLibraryFileUpload::make('logos')
+                    ->label('Logos')
+                    ->collection('logos')
+                    ->maxFiles(1),
             ]);
     }
 

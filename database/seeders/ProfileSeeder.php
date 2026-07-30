@@ -7,6 +7,7 @@ use App\Models\Experience;
 use App\Models\Language;
 use App\Models\Link;
 use App\Models\Project;
+use App\Models\Course;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -153,8 +154,8 @@ class ProfileSeeder extends Seeder
             Skill::create(array_merge(['user_id' => $user->id], $skillData));
         }
 
-        // Create Education
-        Education::create([
+        // Create Education with Spatie media
+        $education = Education::create([
             'user_id' => $user->id,
             'institution' => 'IU "Andrés Eloy Blanco"',
             'degree' => 'TSU',
@@ -165,6 +166,8 @@ class ProfileSeeder extends Seeder
             'is_current' => false,
             'sort_order' => 1,
         ]);
+        
+        // Note: certificates media se agregan manualmente desde el admin de Filament
 
         Education::create([
             'user_id' => $user->id,
@@ -190,6 +193,25 @@ class ProfileSeeder extends Seeder
             'user_id' => $user->id,
             'name' => 'Inglés',
             'level' => 'Básico',
+            'sort_order' => 2,
+        ]);
+
+        // Create Courses
+        Course::create([
+            'user_id' => $user->id,
+            'name' => 'Técnicas Avanzadas de Laravel',
+            'institution' => 'Laracasts',
+            'date' => '2024-06-15',
+            'description' => 'Curso avanzado sobre Laravel: queues, broadcasting, testing, y optimización.',
+            'sort_order' => 1,
+        ]);
+
+        Course::create([
+            'user_id' => $user->id,
+            'name' => 'Desarrollo Full Stack con React y Node.js',
+            'institution' => 'Platzi',
+            'date' => '2023-11-20',
+            'description' => 'Programa completo de desarrollo full stack cubriendo React, Node.js, Express y PostgreSQL.',
             'sort_order' => 2,
         ]);
     }

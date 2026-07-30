@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Skills;
 
-use App\Filament\Resources\Skills\Pages\ManageSkills;
+    use App\Filament\Resources\Skills\Pages\ManageSkills;
 use App\Models\Skill;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -10,6 +10,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -54,6 +55,10 @@ class SkillResource extends Resource
                     ->label('Orden')
                     ->numeric()
                     ->default(0),
+                SpatieMediaLibraryFileUpload::make('icons')
+                    ->label('Iconos')
+                    ->collection('icons')
+                    ->maxFiles(1),
             ]);
     }
 
