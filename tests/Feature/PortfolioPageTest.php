@@ -218,7 +218,7 @@ class PortfolioPageTest extends TestCase
         $this->get('/')->assertSee('Toggle dark mode');
     }
 
-    public function test_home_page_renders_owner_phone_as_clickable_link(): void
+    public function test_home_page_renders_owner_phone_as_whatsapp_link(): void
     {
         $user = $this->createUserWithRelations();
 
@@ -226,6 +226,6 @@ class PortfolioPageTest extends TestCase
 
         $this->get('/')
             ->assertSee('+58 414-516-9484')
-            ->assertSee('tel:+584145169484', false);
+            ->assertSee('https://wa.me/584145169484', false);
     }
 }

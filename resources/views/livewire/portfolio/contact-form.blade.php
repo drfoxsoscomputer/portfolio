@@ -4,7 +4,7 @@
     @if ($user->phone)
         <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
             Prefer a direct call?
-            <a href="tel:{{ preg_replace('/[^\d+]/', '', $user->phone) }}" class="font-medium text-amber-600 transition-colors hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300">{{ $user->phone }}</a>
+            <a href="https://wa.me/{{ preg_replace('/\D/', '', $user->phone) }}" target="_blank" rel="noopener noreferrer" class="font-medium text-amber-600 transition-colors hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300">{{ $user->phone }}</a>
         </p>
     @endif
 
