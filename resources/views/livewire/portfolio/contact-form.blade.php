@@ -1,6 +1,13 @@
 <section id="contact" class="py-20 print:hidden" data-fade-in>
     <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Get in touch</h2>
 
+    @if ($user->phone)
+        <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
+            Prefer a direct call?
+            <a href="tel:{{ preg_replace('/[^\d+]/', '', $user->phone) }}" class="font-medium text-amber-600 transition-colors hover:text-amber-700 dark:text-amber-400 dark:hover:text-amber-300">{{ $user->phone }}</a>
+        </p>
+    @endif
+
     @if ($sent)
         <div class="mt-6 rounded-lg border border-green-600/30 bg-green-600/10 px-4 py-3 text-sm text-green-700 dark:text-green-400" role="status">
             Thank you! Your message has been sent. I will get back to you soon.

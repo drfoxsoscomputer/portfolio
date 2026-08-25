@@ -4,6 +4,7 @@ namespace App\Livewire\Portfolio;
 
 use App\Contracts\ContactNotifierInterface;
 use App\Models\ContactRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -15,6 +16,8 @@ class ContactForm extends Component
      * Maximum number of submissions allowed per IP within the rate limit window.
      */
     private const MAX_ATTEMPTS = 5;
+
+    public User $user;
 
     public string $name = '';
 

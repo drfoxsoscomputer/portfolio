@@ -29,7 +29,7 @@
         <livewire:portfolio.courses-section :user="$user" />
         <livewire:portfolio.languages-section :user="$user" />
         <livewire:portfolio.linktree-section :user="$user" />
-        <livewire:portfolio.contact-form />
+        <livewire:portfolio.contact-form :user="$user" />
     </main>
 
     <footer class="border-t border-zinc-200 py-8 text-center text-sm text-zinc-500 dark:border-zinc-800 dark:text-zinc-400 print:hidden">

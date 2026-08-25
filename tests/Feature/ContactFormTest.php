@@ -26,14 +26,14 @@ class ContactFormTest extends TestCase
 
     public function test_contact_form_requires_name_email_and_message(): void
     {
-        Livewire::test(ContactForm::class)
+        Livewire::test(ContactForm::class, ['user' => User::factory()->create()])
             ->call('submit')
             ->assertHasErrors(['name', 'email', 'message']);
     }
 
     public function test_contact_form_rejects_invalid_email(): void
     {
-        Livewire::test(ContactForm::class)
+        Livewire::test(ContactForm::class, ['user' => User::factory()->create()])
             ->set('name', 'John Doe')
             ->set('email', 'not-an-email')
             ->set('message', self::VALID_MESSAGE)
@@ -43,7 +43,7 @@ class ContactFormTest extends TestCase
 
     public function test_contact_form_rejects_short_message(): void
     {
-        Livewire::test(ContactForm::class)
+        Livewire::test(ContactForm::class, ['user' => User::factory()->create()])
             ->set('name', 'John Doe')
             ->set('email', 'john@example.com')
             ->set('message', 'Short')
@@ -53,7 +53,7 @@ class ContactFormTest extends TestCase
 
     public function test_guest_can_submit_valid_contact_request(): void
     {
-        Livewire::test(ContactForm::class)
+        Livewire::test(ContactForm::class, ['user' => User::factory()->create()])
             ->set('name', 'John Doe')
             ->set('email', 'john@example.com')
             ->set('message', self::VALID_MESSAGE)
@@ -75,7 +75,7 @@ class ContactFormTest extends TestCase
     {
         $admin = User::factory()->create(['email' => 'daprthefox@gmail.com']);
 
-        Livewire::test(ContactForm::class)
+        Livewire::test(ContactForm::class, ['user' => User::factory()->create()])
             ->set('name', 'John Doe')
             ->set('email', 'john@example.com')
             ->set('message', self::VALID_MESSAGE)
@@ -148,7 +148,7 @@ class ContactFormTest extends TestCase
     public function test_contact_form_is_rate_limited_after_five_submissions(): void
     {
         foreach (range(1, 5) as $attempt) {
-            Livewire::test(ContactForm::class)
+            Livewire::test(ContactForm::class, ['user' => User::factory()->create()])
                 ->set('name', "John Doe {$attempt}")
                 ->set('email', 'john@example.com')
                 ->set('message', self::VALID_MESSAGE)
@@ -158,7 +158,7 @@ class ContactFormTest extends TestCase
 
         $this->assertSame(5, ContactRequest::count());
 
-        Livewire::test(ContactForm::class)
+        Livewire::test(ContactForm::class, ['user' => User::factory()->create()])
             ->set('name', 'John Doe 6')
             ->set('email', 'john@example.com')
             ->set('message', self::VALID_MESSAGE)
