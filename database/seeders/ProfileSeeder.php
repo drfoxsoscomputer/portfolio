@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Course;
 use App\Models\Education;
 use App\Models\Experience;
 use App\Models\Language;
 use App\Models\Link;
 use App\Models\Project;
-use App\Models\Course;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -22,8 +22,8 @@ class ProfileSeeder extends Seeder
     {
         $user = User::create([
             'name' => 'Denis Piña',
-            'email' => 'daprthefox@gmail.com',
-            'password' => Hash::make('asdf1234'),
+            'email' => config('portfolio.admin.email'),
+            'password' => Hash::make(config('portfolio.admin.password')),
             'title' => 'Desarrollador Full Stack',
             'location' => 'Venezuela, Lara',
             'phone' => '+58 414-516-9484',
@@ -166,7 +166,7 @@ class ProfileSeeder extends Seeder
             'is_current' => false,
             'sort_order' => 1,
         ]);
-        
+
         // Note: certificates media se agregan manualmente desde el admin de Filament
 
         Education::create([

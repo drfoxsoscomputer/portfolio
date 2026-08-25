@@ -17,6 +17,7 @@ class ListCourses extends ListRecords
                 ->label('Nuevo curso')
                 ->mutateFormDataUsing(function (array $data): array {
                     $data['user_id'] = auth()->id();
+
                     return $data;
                 }),
         ];

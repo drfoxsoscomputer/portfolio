@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Languages;
 
-    use App\Filament\Resources\Languages\Pages\ManageLanguages;
+use App\Filament\Resources\Languages\Pages\ManageLanguages;
 use App\Models\Language;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -16,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use UnitEnum;
 
@@ -93,7 +94,7 @@ class LanguageResource extends Resource
             ])
             ->defaultSort('sort_order')
             ->filters([
-                \Filament\Tables\Filters\SelectFilter::make('level')
+                SelectFilter::make('level')
                     ->label('Nivel')
                     ->options([
                         'native' => 'Nativo',
@@ -111,7 +112,7 @@ class LanguageResource extends Resource
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make()
-                    ->label('Eliminar seleccionados'),
+                        ->label('Eliminar seleccionados'),
                 ]),
             ]);
     }

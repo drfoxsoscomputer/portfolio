@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\ExperienceFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,6 +32,18 @@ class Experience extends Model implements HasMedia
     protected string $factory = ExperienceFactory::class;
 
     /**
+     * Get the attributes that should be cast.
+     */
+    protected function casts(): array
+    {
+        return [
+            'start_date' => 'date',
+            'end_date' => 'date',
+            'is_current' => 'boolean',
+        ];
+    }
+
+    /**
      * Get the table associated with the model.
      */
     protected $table = 'experiences';
@@ -53,7 +66,7 @@ class Experience extends Model implements HasMedia
     /**
      * Override the base query to apply default ordering by start_date (descending).
      */
-    public function newQuery(): \Illuminate\Database\Eloquent\Builder
+    public function newQuery(): Builder
     {
         return parent::newQuery()->orderBy('start_date', 'desc');
     }

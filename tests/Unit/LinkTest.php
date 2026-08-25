@@ -4,11 +4,12 @@ namespace Tests\Unit;
 
 use App\Models\Link;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class LinkTest extends TestCase
 {
-    use \Illuminate\Foundation\Testing\RefreshDatabase;
+    use RefreshDatabase;
 
     /**
      * Test that the Link model can be created
@@ -68,7 +69,7 @@ class LinkTest extends TestCase
         Link::factory()->create(['user_id' => $user->id, 'label' => 'Link C', 'sort_order' => 3]);
 
         $links = Link::all();
-        
+
         $this->assertEquals('Link B', $links[0]->label);
         $this->assertEquals('Link C', $links[1]->label);
         $this->assertEquals('Link A', $links[2]->label);

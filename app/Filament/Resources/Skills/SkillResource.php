@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Skills;
 
-    use App\Filament\Resources\Skills\Pages\ManageSkills;
+use App\Filament\Resources\Skills\Pages\ManageSkills;
 use App\Models\Skill;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
