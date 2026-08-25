@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\EducationFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,6 +32,19 @@ class Education extends Model implements HasMedia
     protected string $factory = EducationFactory::class;
 
     /**
+     * Get the attributes that should be cast.
+     */
+    protected function casts(): array
+    {
+        return [
+            'start_date' => 'date',
+            'end_date' => 'date',
+            'is_current' => 'boolean',
+            'sort_order' => 'integer',
+        ];
+    }
+
+    /**
      * Get the table associated with the model.
      */
     protected $table = 'education';
@@ -53,7 +67,7 @@ class Education extends Model implements HasMedia
     /**
      * Override the base query to apply default ordering by sort_order (ascending).
      */
-    public function newQuery(): \Illuminate\Database\Eloquent\Builder
+    public function newQuery(): Builder
     {
         return parent::newQuery()->orderBy('sort_order', 'asc');
     }

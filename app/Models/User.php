@@ -21,7 +21,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class User extends Authenticatable implements FilamentUser, HasMedia
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, Notifiable;
 
     public function canAccessPanel(Panel $panel): bool
     {
@@ -64,6 +64,11 @@ class User extends Authenticatable implements FilamentUser, HasMedia
     public function languages(): HasMany
     {
         return $this->hasMany(Language::class);
+    }
+
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class);
     }
 
     public function images(): MorphMany

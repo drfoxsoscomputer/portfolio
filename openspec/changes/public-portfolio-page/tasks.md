@@ -35,27 +35,27 @@ Chain strategy: feature-branch-chain
 
 ## PR #8: Livewire Components + ContactForm
 
-- [ ] 8.1 Crear layout `resources/views/layouts/portfolio.blade.php` (meta, dark mode, Alpine, Tailwind, print CSS)
-- [ ] 8.2 Crear `PortfolioPage` Full Page Livewire (`app/Http/Livewire/Portfolio/`) con eager loading de User + relaciones
-- [ ] 8.3 Crear `HeroSection` (avatar Spatie, nombre, título, summary, links sociales)
-- [ ] 8.4 Crear `SkillsSection` (iconos Spatie, group por categoría, Alpine filter)
-- [ ] 8.5 Crear `ProjectsSection` (grid cards + screenshots Spatie, tech_stack, links)
-- [ ] 8.6 Crear `ExperienceSection` (timeline vertical + logos Spatie)
-- [ ] 8.7 Crear `EducationSection` (cards + certificates Spatie)
-- [ ] 8.8 Crear `LanguagesSection` (flags Spatie, nivel con barras)
-- [ ] 8.9 Crear `StatsSection` (contadores animados con Alpine Intersection Observer)
-- [ ] 8.10 Crear `LinktreeSection` (links sociales como botones)
-- [ ] 8.11 Crear `CoursesSection` (cards + certificates Spatie)
-- [ ] 8.12 Crear `ContactRequest` model + migration (name, email, message, read_at)
-- [ ] 8.13 Crear `ContactNotifierInterface` + `NotificationContactNotifier` (notificación admin Filament). SIN email.
-- [ ] 8.14 Crear `ContactForm` Livewire component (formulario + store + notificar admin)
-- [ ] 8.15 Actualizar `routes/web.php`: `GET /` → `PortfolioPage`
-- [ ] 8.16 Dark mode toggle (Alpine + localStorage, default dark)
-- [ ] 8.17 Responsive mobile-first (Tailwind)
-- [ ] 8.18 Scroll animations fade-in (Intersection Observer)
-- [ ] 8.19 Print CSS para recruiters
-- [ ] 8.20 Tests: todos los componentes renderizan datos correctamente
-- [ ] 8.21 Tests: ContactForm valida, guarda y notifica
+- [x] 8.1 Crear layout `resources/views/layouts/portfolio.blade.php` (meta, dark mode, Alpine, Tailwind, print CSS)
+- [x] 8.2 Crear `PortfolioPage` Full Page Livewire (`app/Http/Livewire/Portfolio/`) con eager loading de User + relaciones
+- [x] 8.3 Crear `HeroSection` (avatar Spatie, nombre, título, summary, links sociales)
+- [x] 8.4 Crear `SkillsSection` (iconos Spatie, group por categoría, Alpine filter)
+- [x] 8.5 Crear `ProjectsSection` (grid cards + screenshots Spatie, tech_stack, links)
+- [x] 8.6 Crear `ExperienceSection` (timeline vertical + logos Spatie)
+- [x] 8.7 Crear `EducationSection` (cards + certificates Spatie)
+- [x] 8.8 Crear `LanguagesSection` (flags Spatie, nivel con barras)
+- [x] 8.9 Crear `StatsSection` (contadores animados con Alpine Intersection Observer)
+- [x] 8.10 Crear `LinktreeSection` (links sociales como botones)
+- [x] 8.11 Crear `CoursesSection` (cards + certificates Spatie)
+- [x] 8.12 Crear `ContactRequest` model + migration (name, email, message, read_at)
+- [x] 8.13 Crear `ContactNotifierInterface` + `NotificationContactNotifier` (notificación admin Filament). SIN email.
+- [x] 8.14 Crear `ContactForm` Livewire component (formulario + store + notificar admin)
+- [x] 8.15 Actualizar `routes/web.php`: `GET /` → `PortfolioPage`
+- [x] 8.16 Dark mode toggle (Alpine + localStorage, default dark)
+- [x] 8.17 Responsive mobile-first (Tailwind)
+- [x] 8.18 Scroll animations fade-in (Intersection Observer)
+- [x] 8.19 Print CSS para recruiters
+- [x] 8.20 Tests: todos los componentes renderizan datos correctamente
+- [x] 8.21 Tests: ContactForm valida, guarda y notifica
 
 ## PR #9: Google Translate + Preview + SEO + i18n
 
