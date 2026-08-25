@@ -1,4 +1,4 @@
-<section id="skills" class="py-20 print:py-8" data-fade-in x-data="{ filter: 'All' }">
+<section id="skills" class="py-20 print:py-8" data-fade-in x-data="{ filter: 0 }">
     <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Skills</h2>
 
     @if ($groupedSkills->isEmpty())
@@ -8,18 +8,17 @@
             <button
                 type="button"
                 class="rounded-full border px-4 py-1.5 text-sm transition-colors"
-                :class="filter === 'All' ? 'border-amber-600 bg-amber-600 text-white' : 'border-zinc-300 text-zinc-600 hover:border-amber-600 dark:border-zinc-700 dark:text-zinc-400'"
-                @click="filter = 'All'"
+                :class="filter === 0 ? 'border-amber-600 bg-amber-600 text-white' : 'border-zinc-300 text-zinc-600 hover:border-amber-600 dark:border-zinc-700 dark:text-zinc-400'"
+                @click="filter = 0"
             >
                 All
             </button>
             @foreach ($groupedSkills as $category => $skills)
                 <button
                     type="button"
-                    x-data='{ category: @js($category) }'
                     class="rounded-full border px-4 py-1.5 text-sm transition-colors"
-                    :class="filter === category ? 'border-amber-600 bg-amber-600 text-white' : 'border-zinc-300 text-zinc-600 hover:border-amber-600 dark:border-zinc-700 dark:text-zinc-400'"
-                    @click="filter = category"
+                    :class="filter === {{ $loop->index + 1 }} ? 'border-amber-600 bg-amber-600 text-white' : 'border-zinc-300 text-zinc-600 hover:border-amber-600 dark:border-zinc-700 dark:text-zinc-400'"
+                    @click="filter = {{ $loop->index + 1 }}"
                 >
                     {{ $category }}
                 </button>
@@ -28,7 +27,7 @@
 
         <div class="mt-8 space-y-8">
             @foreach ($groupedSkills as $category => $skills)
-                <div x-data='{ category: @js($category) }' x-show="filter === 'All' || filter === category">
+                <div x-show="filter === 0 || filter === {{ $loop->index + 1 }}">
                     <h3 class="text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">{{ $category }}</h3>
                     <div class="mt-3 flex flex-wrap gap-3">
                         @foreach ($skills as $skill)
