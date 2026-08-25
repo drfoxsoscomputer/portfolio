@@ -12,6 +12,7 @@ class EditCourse extends EditRecord
     protected function mutateFormDataBeforeSave(array $data): array
     {
         $data['user_id'] = auth()->id();
+
         return $data;
     }
 }

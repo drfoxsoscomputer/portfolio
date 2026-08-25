@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\ImageFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -50,7 +51,7 @@ class Image extends Model
     /**
      * Override the base query to apply default ordering by sort_order (ascending).
      */
-    public function newQuery(): \Illuminate\Database\Eloquent\Builder
+    public function newQuery(): Builder
     {
         return parent::newQuery()->orderBy('sort_order', 'asc');
     }

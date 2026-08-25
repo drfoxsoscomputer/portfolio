@@ -6,7 +6,6 @@ use App\Filament\Pages\Auth\EditProfile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ProfileAdminTest extends TestCase
