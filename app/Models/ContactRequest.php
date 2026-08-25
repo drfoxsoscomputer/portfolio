@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Database\Factories\ContactRequestFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,6 +17,13 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable(['name', 'email', 'message', 'read_at'])]
 class ContactRequest extends Model
 {
+    use HasFactory;
+
+    /**
+     * Get the factory class for the model.
+     */
+    protected string $factory = ContactRequestFactory::class;
+
     /**
      * Get the attributes that should be cast.
      */
