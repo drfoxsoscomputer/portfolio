@@ -25,6 +25,7 @@ class PortfolioPage extends Component
             'educations',
             'languages',
             'courses',
+            'media',
         ])->first() ?? new User;
     }
 

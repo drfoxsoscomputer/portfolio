@@ -7,6 +7,7 @@ use App\Livewire\Portfolio\ContactForm;
 use App\Models\ContactRequest;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -15,6 +16,13 @@ class ContactFormTest extends TestCase
     use RefreshDatabase;
 
     private const VALID_MESSAGE = 'I want to hire you for a project.';
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        RateLimiter::clear('contact-form:127.0.0.1');
+    }
 
     public function test_contact_form_requires_name_email_and_message(): void
     {
@@ -135,5 +143,28 @@ class ContactFormTest extends TestCase
         $this->assertTrue($notifier->markAsRead($notifications[0]['id']));
 
         $this->assertTrue($admin->fresh()->notifications()->first()->read());
+    }
+
+    public function test_contact_form_is_rate_limited_after_five_submissions(): void
+    {
+        foreach (range(1, 5) as $attempt) {
+            Livewire::test(ContactForm::class)
+                ->set('name', "John Doe {$attempt}")
+                ->set('email', 'john@example.com')
+                ->set('message', self::VALID_MESSAGE)
+                ->call('submit')
+                ->assertHasNoErrors();
+        }
+
+        $this->assertSame(5, ContactRequest::count());
+
+        Livewire::test(ContactForm::class)
+            ->set('name', 'John Doe 6')
+            ->set('email', 'john@example.com')
+            ->set('message', self::VALID_MESSAGE)
+            ->call('submit')
+            ->assertHasErrors(['message']);
+
+        $this->assertSame(5, ContactRequest::count());
     }
 }

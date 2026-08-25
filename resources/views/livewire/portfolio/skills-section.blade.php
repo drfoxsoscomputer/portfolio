@@ -1,10 +1,10 @@
-<section id="skills" class="py-20 print:py-8" data-fade-in>
+<section id="skills" class="py-20 print:py-8" data-fade-in x-data="{ filter: 'All' }">
     <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Skills</h2>
 
     @if ($groupedSkills->isEmpty())
         <p class="mt-6 text-zinc-500 dark:text-zinc-400">Skills are being updated.</p>
     @else
-        <div class="mt-6 flex flex-wrap gap-2 print:hidden" x-data="{ filter: 'All' }">
+        <div class="mt-6 flex flex-wrap gap-2 print:hidden">
             <button
                 type="button"
                 class="rounded-full border px-4 py-1.5 text-sm transition-colors"
@@ -16,9 +16,10 @@
             @foreach ($groupedSkills as $category => $skills)
                 <button
                     type="button"
+                    x-data='{ category: @js($category) }'
                     class="rounded-full border px-4 py-1.5 text-sm transition-colors"
-                    :class="filter === '{{ $category }}' ? 'border-amber-600 bg-amber-600 text-white' : 'border-zinc-300 text-zinc-600 hover:border-amber-600 dark:border-zinc-700 dark:text-zinc-400'"
-                    @click="filter = '{{ $category }}'"
+                    :class="filter === category ? 'border-amber-600 bg-amber-600 text-white' : 'border-zinc-300 text-zinc-600 hover:border-amber-600 dark:border-zinc-700 dark:text-zinc-400'"
+                    @click="filter = category"
                 >
                     {{ $category }}
                 </button>
@@ -27,7 +28,7 @@
 
         <div class="mt-8 space-y-8">
             @foreach ($groupedSkills as $category => $skills)
-                <div x-data="{ filter: 'All' }" x-show="filter === 'All' || filter === '{{ $category }}'">
+                <div x-data='{ category: @js($category) }' x-show="filter === 'All' || filter === category">
                     <h3 class="text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">{{ $category }}</h3>
                     <div class="mt-3 flex flex-wrap gap-3">
                         @foreach ($skills as $skill)
