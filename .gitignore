@@ -13,6 +13,14 @@
 /.vscode
 /.zed
 /auth.json
+/.agents/
+/.claude/
+/.mcp.json
+/.pi/
+/AGENTS.md
+/CLAUDE.md
+/boost.json
+/opencode.json
 /node_modules
 /public/build
 /public/fonts-manifest.dev.json
@@ -22,6 +30,7 @@
 /storage/pail
 /storage/media-library/
 /.atl/.skill-registry.cache.json
+/.atl/skill-registry.md
 /vendor
 _ide_helper.php
 Homestead.json
